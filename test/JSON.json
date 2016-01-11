@@ -1,0 +1,48 @@
+{
+  /*Toutes les relations*/
+  "relations": [
+    /* 1ère relation*/
+    {
+      "nom": "nom_relation",
+      /* noeud 1 */
+      "node1": "nom_2emenoeud",
+      /* noeud 2 */
+      "node2": "nom_2emenoeud"
+    },
+    /* Xème relation */
+    {
+      "nom": "nom_relation",
+      /* noeud 1 */
+      "node1": "nom_2emenoeud",
+      /* noeud 2 */
+      "node2": "nom_2emenoeud"
+    }
+  ],
+  /*Tous les noeuds*/
+  "nodes": [
+    /* noeud 1 */
+    {
+      "nom": "nom_noeud1",
+      "parametres": [
+        "parametre1",
+        "parametreX"
+      ],
+      "labels": [
+        "label1",
+        "labelX"
+      ]
+    },
+    /* noeud 2 */
+    {
+      "nom": "nom_noeud1",
+      "parametres": [
+        "parametre1",
+        "parametreX"
+      ],
+      "labels": [
+        "label1",
+        "labelX"
+      ]
+    }
+  ]
+}

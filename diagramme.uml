@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-11.0" y="88.0">model.XML</node>
+    <node x="714.0" y="74.5">model.Relation</node>
+    <node x="297.0" y="340.0">model.Node</node>
+    <node x="379.0" y="61.0">model.Data</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.Data" target="model.Node">
+      <point x="-101.0" y="40.0" />
+      <point x="240.0" y="200.0" />
+      <point x="240.0" y="520.0" />
+      <point x="-183.0" y="-0.0" />
+    </edge>
+    <edge source="model.XML" target="model.Data">
+      <point x="0.0" y="-72.0" />
+      <point x="80.0" y="0.0" />
+      <point x="440.0" y="0.0" />
+      <point x="-40.0" y="-99.0" />
+    </edge>
+    <edge source="model.Data" target="model.Relation">
+      <point x="101.0" y="-0.0" />
+      <point x="-166.0" y="-0.0" />
+    </edge>
+    <edge source="model.Relation" target="model.Node">
+      <point x="0.0" y="85.5" />
+      <point x="880.0" y="520.0" />
+      <point x="183.0" y="-0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.47735191637630664" x="501.5" y="564.0" />
+  <SelectedNodes>
+    <node>model.Node</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
