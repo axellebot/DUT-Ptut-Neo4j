@@ -8,9 +8,6 @@ import java.util.ArrayList;
  * and open the template in the editor.
  */
 
-/**
- * @authors Romain Axel Emilien Julien
- */
 public class Node {
 
     private String name;

@@ -1,8 +1,5 @@
 package model;
 
-/**
- * Created by axell on 08/01/16.
- */
 public class XML {
     Data data;
 

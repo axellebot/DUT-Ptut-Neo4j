@@ -2,9 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-/**
- * @authors Romain Axel Emilien Julien
- */
 public class Data {
     private ArrayList<Node> nodeList;
     private ArrayList<Relation> relaList;

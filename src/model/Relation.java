@@ -4,9 +4,6 @@ package model;/*
  * and open the template in the editor.
  */
 
-/**
- * @authors Romain Axel Emilien Julien
- */
 public class Relation {
 
     private Node node1;
