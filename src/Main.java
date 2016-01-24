@@ -5,6 +5,7 @@
  */
 
 import model.Data;
+import model.Json;
 
 import java.util.Scanner;
 
@@ -13,11 +14,14 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-
-
         Data data = new Data();
 
         System.out.println("Bienvenue sur Neo4J Remake");
+
+
+        Json test = new Json("D:\\_tmp\\IUT-Ptut\\model.json");
+        test.read();
+
 
         System.out.println("Relation de test :");
         System.out.println(data.getRelaList().get(0));

@@ -1,0 +1,38 @@
+{
+  "nodes": [
+    {
+      "name": "nom_noeud1",
+      "parameters": [
+        "parametre1",
+        "parametreX"
+      ],
+      "labels": [
+        "label1",
+        "labelX"
+      ]
+    },
+    {
+      "name": "nom_noeud2",
+      "parameters": [
+        "parametre1",
+        "parametreX"
+      ],
+      "labels": [
+        "label1",
+        "labelX"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "name": "nom_relation1",
+      "node1": "nom_1erNoeud",
+      "node2": "nom_2emeNoeud"
+    },
+    {
+      "name": "nom_relation2",
+      "node1": "nom_1erNoeud",
+      "node2": "nom_2emeNoeud"
+    }
+  ]
+}

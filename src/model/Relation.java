@@ -5,12 +5,11 @@ package model;/*
  */
 
 public class Relation {
-
+    private String name;
     private Node node1;
     private Node node2;
-    private String name;
 
-    public Relation(Node node1, Node node2, String name) {
+    public Relation(String name, Node node1, Node node2) {
         this.node1 = node1;
         this.node2 = node2;
         this.name = name;

@@ -9,8 +9,7 @@ public class Data {
     public Data() {
         nodeList = new ArrayList<>();
         relaList = new ArrayList<>();
-
-        test();
+        //test();
     }
 
     private void test() {
