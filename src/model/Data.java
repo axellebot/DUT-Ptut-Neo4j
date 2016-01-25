@@ -12,12 +12,12 @@ public class Data {
         //test();
     }
 
-    private void test() {
+    public void test() {
         nodeList.add(new Node("Paul"));
         nodeList.get(0).addLabel("Personne");
         nodeList.add(new Node("Harry Plotter"));
         nodeList.get(1).addLabel("Livre");
-        relaList.add(new Relation(nodeList.get(0), nodeList.get(1), "aime lire"));
+        relaList.add(new Relation("aime lire", nodeList.get(0), nodeList.get(1)));
     }
 
     public ArrayList<Node> getNodeList() {
