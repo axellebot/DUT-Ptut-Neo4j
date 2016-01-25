@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,9 +17,8 @@ public class Json {
     public Json() {
     }
 
-    public static void read() {
+    public static void read(String inputFilePath) {
         JSONParser parser = new JSONParser();
-        String inputFilePath = ".\\model.json";
         try {
             System.out.println("Reading JSON file from Java program");
             FileReader fileReader = new FileReader(inputFilePath);
@@ -76,14 +76,15 @@ public class Json {
         }
     }
 
-    public static void extract(Data data) {
+    public static Data extract(String inputFilePath) {
+
+        return null;
     }
 
-    public static void export(Data data) {
+    public static void export(Data data,File fileOuputPath) {
         if (data != null) {
-            String outputFilePath = "./save/save-" + new java.util.Date().getTime() + ".json";
 
-            System.out.println(outputFilePath);
+            System.out.println(fileOuputPath);
             JSONObject json = new JSONObject();
             JSONArray arrayNodes = new JSONArray();
             JSONArray arrayRelations = new JSONArray();
@@ -123,7 +124,7 @@ public class Json {
 
             try {
                 System.out.println("Writting JSON into file ...");
-                FileWriter jsonFileWriter = new FileWriter(outputFilePath);
+                FileWriter jsonFileWriter = new FileWriter(fileOuputPath);
                 jsonFileWriter.write(json.toJSONString());
                 jsonFileWriter.flush();
                 jsonFileWriter.close();

@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-import model.CommandControl;
 import model.Data;
 import model.Json;
 import org.jfree.ui.RefineryUtilities;
@@ -27,14 +26,6 @@ public class Main {
         data.test();
         System.out.println(data.getRelaList().get(0));
 
-        //test Parser
-        CommandControl.parser("CREATE (Paul:Person)");
-
-        //Json
-        Json.read();
-
-        Json.export(data);
-
         //UserInterface
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -44,13 +35,14 @@ public class Main {
 
         //IHM
         Frame _fenetre = new Frame();
+        _fenetre.setData(data);
 
         RefineryUtilities.centerFrameOnScreen(_fenetre);
 
         _fenetre.setVisible(true);
 
 
-        //model.CommandControl
+        //CommandControl
         Scanner sc = new Scanner(System.in);
         String str;
         String exitCommand = "exit";

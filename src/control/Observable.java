@@ -2,8 +2,12 @@ package control;
 
 import java.util.ArrayList;
 
-public class Observable {
+public abstract class Observable {
     private ArrayList<Observateur> listObservateur;
+
+    public Observable() {
+        listObservateur = new ArrayList<>();
+    }
 
     public Observable(Observateur o) {
         listObservateur = new ArrayList<>();

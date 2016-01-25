@@ -1,9 +1,16 @@
 package view;
 
+import model.Data;
+import model.Json;
+import model.Utils;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
+import java.io.File;
 
 public class Frame extends JFrame {
+    Data data;
     GraphPanel graphPanel;
     PromptPanel promptPanel;
     ToolsPanel toolsPanel;
@@ -13,6 +20,7 @@ public class Frame extends JFrame {
         setResizable(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        data = new Data();
         graphPanel = new GraphPanel();
         promptPanel = new PromptPanel();
         toolsPanel = new ToolsPanel();
@@ -88,12 +96,34 @@ public class Frame extends JFrame {
     }
 
     public class ToolsPanel extends JPanel {
-        public JButton btnExport = new JButton("Export");
-        public JButton btnImport = new JButton("Import");
-        public JButton btnRead = new JButton("Read");
+        public JButton btnExport = new JButton("Exporter");
+        public JButton btnImport = new JButton("Importer");
+        public JButton btnRead = new JButton("Lire");
+
+        //Create a file chooser
+        final JFileChooser fileChooser = new JFileChooser();
 
         public ToolsPanel() {
-            this.setBorder(BorderFactory.createTitledBorder("Tools"));
+            this.setBorder(BorderFactory.createTitledBorder("Outils"));
+
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            fileChooser.addChoosableFileFilter(new FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    if (f.isDirectory()) {
+                        return true;
+                    }
+                    if (model.Utils.getExtension(f).equals(model.Utils.json)) {
+                        return true;
+                    }
+                    return false;
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Json";
+                }
+            });
 
             this.add(btnExport);
             this.add(btnImport);
@@ -116,15 +146,52 @@ public class Frame extends JFrame {
             this.setPreferredSize(new Dimension(150, 100));
 
             btnExport.addActionListener(e -> {
-                //Create a file chooser
-                final JFileChooser fc = new JFileChooser();
+                //In response to a button click:
+                int returnVal = fileChooser.showSaveDialog(this);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    //This is where a real application would save the file.
+                    System.out.println("Saving: " + file.getAbsolutePath());
+                    Json.export(data, file);
+                } else {
+                    System.out.println("Save command cancelled by user.");
+                }
             });
             btnImport.addActionListener(e -> {
+                //In response to a button click:
+                int returnVal = fileChooser.showOpenDialog(this);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    //This is where a real application would open the file.
+                    System.out.println("Opening: " + file.getAbsoluteFile());
+                    Json.extract(file.getAbsolutePath());
+                } else {
+                    System.out.println("Open command cancelled by user.");
+                }
             });
             btnRead.addActionListener(e -> {
+                //In response to a button click:
+                int returnVal = fileChooser.showOpenDialog(this);
+                System.out.println(returnVal);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    //This is where a real application would open the file.
+                    System.out.println("Opening: " + file.getAbsoluteFile());
+                    Json.read(file.getAbsolutePath());
+                } else {
+                    System.out.println("Open command cancelled by user.");
+                }
             });
         }
 
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
     }
 }
 

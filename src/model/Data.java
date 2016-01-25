@@ -1,8 +1,10 @@
 package model;
 
+import control.Observable;
+
 import java.util.ArrayList;
 
-public class Data {
+public class Data extends Observable {
     private ArrayList<Node> nodeList;
     private ArrayList<Relation> relaList;
 
