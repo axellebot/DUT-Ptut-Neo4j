@@ -1,4 +1,4 @@
-/*
+package model;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,6 +11,25 @@ import java.util.Stack;
  * @author Romain
  */
 public abstract class CommandControl {
+
+    public static void parser(String command){
+        if(validParenthesage(command)) {
+            String[] parts = command.split(" ");
+            if(parts[0] == "MATCH"){
+
+            }
+            else if(parts[0] == "CREATE"){
+                if(validParenthesage(parts[1])){
+                    String[] subparts = parts[1].split("()");
+                    for(String s : subparts)
+                        System.out.println(s);
+                }
+            }
+            else if(parts[0] == "DELETE"){
+
+            }
+        }
+    }
 
     public static boolean validParenthesage(String s) {
         HashMap<Character, Character> map = new HashMap();
