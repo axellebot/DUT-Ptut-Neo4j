@@ -16,7 +16,7 @@ public class Json {
     public Json() {
     }
 
-    public void read() {
+    public static void read() {
         JSONParser parser = new JSONParser();
         String inputFilePath = ".\\model.json";
         try {
@@ -72,10 +72,10 @@ public class Json {
         }
     }
 
-    public void extract(Data data) {
+    public static void extract(Data data) {
     }
 
-    public void export(Data data) {
+    public static void export(Data data) {
         if (data != null) {
             String outputFilePath = "./save/save-" + new java.util.Date().getTime() + ".json";
 
