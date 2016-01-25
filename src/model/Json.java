@@ -77,7 +77,7 @@ public class Json {
 
     public void export(Data data) {
         if (data != null) {
-            String outputFilePath = "./" + "save-" + new java.util.Date().getTime() + ".json";
+            String outputFilePath = "./save/save-" + new java.util.Date().getTime() + ".json";
 
             System.out.println(outputFilePath);
             JSONObject json = new JSONObject();
