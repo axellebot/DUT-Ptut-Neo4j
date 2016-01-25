@@ -3,22 +3,19 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by axell on 25/01/16.
- */
 public class Frame extends JFrame {
-    PanneauVisu panoVisu;
-    PanneauCommande panoComm;
-    PanneauOutils panoOutil;
+    GraphPanel graphPanel;
+    PromptPanel promptPanel;
+    ToolsPanel toolsPanel;
 
     public Frame() {
         super("Neo4j");
         setResizable(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        panoVisu = new PanneauVisu();
-        panoComm = new PanneauCommande();
-        panoOutil = new PanneauOutils();
+        graphPanel = new GraphPanel();
+        promptPanel = new PromptPanel();
+        toolsPanel = new ToolsPanel();
         //placement des panneaux
         this.getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints cont = new GridBagConstraints();
@@ -27,26 +24,26 @@ public class Frame extends JFrame {
         cont.gridy = 0;
         cont.gridwidth = 5;
         cont.gridheight = 15;
-        this.getContentPane().add(panoOutil, cont);
+        this.getContentPane().add(toolsPanel, cont);
         cont.gridx = 1;
         cont.gridy = 0;
         cont.gridheight = 13;
         cont.gridwidth = 10;
-        this.getContentPane().add(panoVisu, cont);
+        this.getContentPane().add(graphPanel, cont);
         cont.gridx = 1;
         cont.gridy = 1;
         cont.gridheight = 2;
         cont.gridwidth = 10;
-        this.getContentPane().add(panoComm, cont);
+        this.getContentPane().add(promptPanel, cont);
     }
 
-    public class PanneauVisu extends JPanel {
+    public class GraphPanel extends JPanel {
 
-        public JButton btStart = new JButton("Start");
-        public JButton btStop = new JButton("Stop");
+        public JButton btnStart = new JButton("Start");
+        public JButton btnStop = new JButton("Stop");
 
 
-        public PanneauVisu() {
+        public GraphPanel() {
             this.setBorder(BorderFactory.createTitledBorder("Start/Stop"));
             this.setPreferredSize(new Dimension(100, 100));
             this.setLayout(new GridBagLayout());
@@ -54,27 +51,22 @@ public class Frame extends JFrame {
             cont.fill = GridBagConstraints.BOTH;
             cont.gridx = 0;
             cont.gridy = 0;
-            this.add(btStart, cont);
+            this.add(btnStart, cont);
             cont.gridy = 1;
-            this.add(btStop, cont);
+            this.add(btnStop, cont);
         }
     }
 
 
-    public class PanneauCommande extends JPanel {
-        public JButton Generer = new JButton("Géneration");
+    public class PromptPanel extends JPanel {
+        public JButton btnGenerate = new JButton("Géneration");
 
-
-        public PanneauCommande() {
-
+        public PromptPanel() {
         }
-
     }
 
-    public class PanneauOutils extends JPanel {
-
-
-        public PanneauOutils() {
+    public class ToolsPanel extends JPanel {
+        public ToolsPanel() {
 
         }
 
