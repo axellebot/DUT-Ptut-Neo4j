@@ -2,9 +2,9 @@
   "nodes": [
     {
       "name": "nom_noeud1",
-      "parameters": [
-        "parametre1",
-        "parametreX"
+      "properties": [
+        "propriété1",
+        "propriétéX"
       ],
       "labels": [
         "label1",
@@ -13,9 +13,9 @@
     },
     {
       "name": "nom_noeud2",
-      "parameters": [
-        "parametre1",
-        "parametreX"
+      "properties": [
+        "propriété1",
+        "propriétéX"
       ],
       "labels": [
         "label1",
@@ -24,9 +24,9 @@
     },
     {
       "name": "nom_noeud3",
-      "parameters": [
-        "parametre1",
-        "parametreX"
+      "properties": [
+        "propriété1",
+        "propriétéX"
       ],
       "labels": [
         "label1",
