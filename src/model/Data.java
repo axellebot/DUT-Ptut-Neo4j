@@ -14,7 +14,8 @@ public class Data {
 
     public void test() {
         nodeList.add(new Node("Paul"));
-        nodeList.get(0).addLabel("Personne");
+        nodeList.get(0).addLabel("Paul");
+        nodeList.get(0).setType("Personne");
         nodeList.add(new Node("Harry Plotter"));
         nodeList.get(1).addLabel("Livre");
         relaList.add(new Relation("aime lire", nodeList.get(0), nodeList.get(1)));

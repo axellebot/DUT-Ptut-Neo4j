@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Node {
 
     private String name;
+    private String type;
     private ArrayList<String> labels;
     private ArrayList<String> properties;
 
@@ -22,6 +23,7 @@ public class Node {
      */
     public Node(String name) {
         this.name = name;
+        this.type = null;
         labels = new ArrayList();
         properties = new ArrayList();
         System.out.println("Création du noeud " + name);
@@ -53,6 +55,24 @@ public class Node {
         this.labels = labels;
         this.properties = properties;
         System.out.print("Création du noeud " + name);
+    }
+
+    /**
+     * Getter de type de la node
+     *
+     * @return String type
+     */
+    public String getType(){
+        return type;
+    }
+
+    /**
+     *Setter du type de la node
+     *
+     * @param type String
+     */
+    public void setType(String type){
+        this.type = type;
     }
 
     /**

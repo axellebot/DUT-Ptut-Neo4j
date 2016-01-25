@@ -31,6 +31,7 @@ public class Json {
             System.out.println("-------------Nodes-------------");
             //nodes
             String name = "";
+            String type = "";
             String properties = "";
             String labels = "";
             for (Object nodeJson : arrayNodes) {
@@ -40,6 +41,9 @@ public class Json {
 
                 name = (String) node.get("name");
                 System.out.println(name);
+
+                type = (String) node.get("type");
+                System.out.println("type: " + type);
 
                 properties = "";
                 for (Object propertiesJson : arrayProperties) {
@@ -86,7 +90,9 @@ public class Json {
             for (Node n : data.getNodeList()) {
                 JSONObject node = new JSONObject();
                 node.put("name", n.getName());
-
+                if(n.getType() != null){
+                    node.put("type", n.getType());
+                }
                 JSONArray arrayLabels = new JSONArray();
                 JSONArray arrayProperties = new JSONArray();
                 for (String label : n.getLabels()) {
