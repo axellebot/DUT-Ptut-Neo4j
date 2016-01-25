@@ -21,6 +21,17 @@
         "label1",
         "labelX"
       ]
+    },
+    {
+      "name": "nom_noeud3",
+      "parameters": [
+        "parametre1",
+        "parametreX"
+      ],
+      "labels": [
+        "label1",
+        "labelX"
+      ]
     }
   ],
   "relations": [
@@ -31,6 +42,11 @@
     },
     {
       "name": "nom_relation2",
+      "node1": "nom_1erNoeud",
+      "node2": "nom_2emeNoeud"
+    },
+    {
+      "name": "nom_relation3",
       "node1": "nom_1erNoeud",
       "node2": "nom_2emeNoeud"
     }
