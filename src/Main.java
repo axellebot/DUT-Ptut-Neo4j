@@ -14,19 +14,20 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        Data data = new Data();
 
         System.out.println("Bienvenue sur Neo4J Remake");
 
-
+        //read Json
         Json test = new Json("D:\\_tmp\\IUT-Ptut\\model.json");
         test.read();
 
-
+        //test
+        Data data = new Data();
         System.out.println("Relation de test :");
+        data.test();
         System.out.println(data.getRelaList().get(0));
 
-
+        //CommandControl
         Scanner sc = new Scanner(System.in);
         String str;
         String exitCommand = "exit";
