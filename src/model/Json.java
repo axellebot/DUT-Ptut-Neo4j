@@ -10,16 +10,20 @@ public class Json {
     public Data data;
     private String filePath;
 
+    /**
+     * Constructor
+     */
     public Json() {
         this.data = new Data();
     }
 
+    /**
+     * Constructor
+     *
+     * @param filePath path of the Json file
+     */
     public Json(String filePath) {
         this.filePath = filePath;
-    }
-
-    public Json(Data data) {
-        this.data = data;
     }
 
     public void read() {
@@ -78,6 +82,7 @@ public class Json {
     }
 
     public void extract() {
+        this.data = new Data();
 
     }
 
@@ -85,5 +90,21 @@ public class Json {
         if (this.data != null) {
 
         }
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }
