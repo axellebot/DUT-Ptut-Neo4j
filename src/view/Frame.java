@@ -33,6 +33,8 @@ public class Frame extends JFrame {
         cont.gridx = 1;
         cont.gridy = 1;
         this.getContentPane().add(promptPanel, cont);
+
+        this.pack();
     }
 
     public class GraphPanel extends JPanel {
@@ -40,39 +42,79 @@ public class Frame extends JFrame {
         public JLabel lblText = new JLabel("Ceci est un graph");
 
         public GraphPanel() {
-            this.setBorder(BorderFactory.createTitledBorder("Start/Stop"));
-            this.setPreferredSize(new Dimension(100, 100));
+            this.setBorder(BorderFactory.createTitledBorder("Graph"));
             this.setLayout(new GridBagLayout());
             GridBagConstraints cont = new GridBagConstraints();
+
             cont.fill = GridBagConstraints.BOTH;
             cont.gridx = 0;
             cont.gridy = 0;
             this.add(lblText, cont);
+            this.setPreferredSize(new Dimension(1000, 600));
 
         }
     }
 
 
     public class PromptPanel extends JPanel {
-        public JButton btnGenerate = new JButton("Géneration");
+        public JTextField txtPrompt = new JTextField("                                                                                                                                   ");
+        public JButton btnGenerate = new JButton("Generate");
 
 
         public PromptPanel() {
+            this.setBorder(BorderFactory.createTitledBorder("Prompt"));
 
+            this.add(btnGenerate);
+
+            this.setLayout(new GridBagLayout());
+            GridBagConstraints cont = new GridBagConstraints();
+            cont.fill = GridBagConstraints.BOTH;
+            cont.gridx = 0;
+            cont.gridy = 0;
+            this.add(txtPrompt, cont);
+
+            cont.gridx = 1;
+            cont.gridy = 0;
+            this.add(btnGenerate, cont);
+            this.setPreferredSize(new Dimension(1000, 100));
+
+
+            btnGenerate.addActionListener(e -> {
+
+                //Create a file chooser
+                final JFileChooser fc = new JFileChooser();
+            });
         }
     }
 
     public class ToolsPanel extends JPanel {
-        public JButton btnExport = new JButton("Exporter");
-        public JButton btnImport = new JButton("Importer");
-        public JButton btnRead = new JButton("Lire");
+        public JButton btnExport = new JButton("Export");
+        public JButton btnImport = new JButton("Import");
+        public JButton btnRead = new JButton("Read");
 
         public ToolsPanel() {
-            this.setBorder(BorderFactory.createTitledBorder("Outils"));
+            this.setBorder(BorderFactory.createTitledBorder("Tools"));
 
             this.add(btnExport);
             this.add(btnImport);
             this.add(btnRead);
+
+            this.setLayout(new GridBagLayout());
+            GridBagConstraints cont = new GridBagConstraints();
+            cont.fill = GridBagConstraints.BOTH;
+            cont.gridx = 0;
+            cont.gridy = 0;
+            this.add(btnExport, cont);
+
+            cont.gridx = 0;
+            cont.gridy = 1;
+            this.add(btnImport, cont);
+
+            cont.gridx = 0;
+            cont.gridy = 2;
+            this.add(btnRead, cont);
+            this.setPreferredSize(new Dimension(150, 100));
+
             btnExport.addActionListener(e -> {
                 //Create a file chooser
                 final JFileChooser fc = new JFileChooser();
