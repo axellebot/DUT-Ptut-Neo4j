@@ -27,10 +27,9 @@ public class Main {
         System.out.println(data.getRelaList().get(0));
 
         //Json
-        Json json = new Json();
-        json.read();
+        Json.read();
 
-        json.export(data);
+        Json.export(data);
 
         //UserInterface
         try {

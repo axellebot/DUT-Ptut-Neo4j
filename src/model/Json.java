@@ -33,8 +33,8 @@ public class Json {
             String name = "";
             String properties = "";
             String labels = "";
-            for (int i = 0; i < arrayNodes.size(); i++) {
-                JSONObject node = (JSONObject) arrayNodes.get(i);
+            for (Object nodeJson : arrayNodes) {
+                JSONObject node = (JSONObject) nodeJson;
                 JSONArray arrayProperties = (JSONArray) node.get("properties");
                 JSONArray arrayLabels = (JSONArray) node.get("labels");
 
@@ -42,14 +42,14 @@ public class Json {
                 System.out.println(name);
 
                 properties = "";
-                for (int j = 0; j < arrayProperties.size(); j++) {
-                    properties += arrayProperties.get(j) + " ";
+                for (Object propertiesJson : arrayProperties) {
+                    properties += propertiesJson + " ";
                 }
                 System.out.println("Properties : {" + properties + "}");
 
                 labels = "";
-                for (int j = 0; j < arrayLabels.size(); j++) {
-                    labels += arrayLabels.get(j) + " ";
+                for (Object labelJson : arrayProperties) {
+                    labels += labelJson + " ";
                 }
                 System.out.println("Labels : {" + labels + "}");
             }
@@ -59,8 +59,8 @@ public class Json {
             //relations
             String relationName = "";
             String nodesNames = "";
-            for (int i = 0; i < arrayRelations.size(); i++) {
-                JSONObject relation = ((JSONObject) arrayRelations.get(i));
+            for (Object relationJson : arrayRelations) {
+                JSONObject relation = ((JSONObject) relationJson);
                 relationName = (String) relation.get("name");
                 System.out.println(relationName);
                 nodesNames = relation.get("node1") + ", ";
@@ -83,23 +83,22 @@ public class Json {
             JSONObject json = new JSONObject();
             JSONArray arrayNodes = new JSONArray();
             JSONArray arrayRelations = new JSONArray();
-
-            for (int i = 0; i < data.getNodeList().size(); i++) {
+            for (Node n : data.getNodeList()) {
                 JSONObject node = new JSONObject();
-                node.put("name", data.getNodeList().get(i).getName());
+                node.put("name", n.getName());
 
                 JSONArray arrayLabels = new JSONArray();
                 JSONArray arrayProperties = new JSONArray();
-                for (int j = 0; j < data.getNodeList().get(i).getLabels().size(); j++) {
-                    arrayLabels.add(data.getNodeList().get(i).getLabels().get(j));
+                for (String label : n.getLabels()) {
+                    arrayLabels.add(label);
                 }
 
 
-                for (int j = 0; j < data.getNodeList().get(i).getProperties().size(); j++) {
-                    arrayProperties.add(data.getNodeList().get(i).getProperties().get(j));
+                for (String properties : n.getProperties()) {
+                    arrayProperties.add(properties);
                 }
 
-                node.put("name", data.getNodeList().get(i).getName());
+                node.put("name", n.getName());
                 node.put("labels", arrayProperties);
                 node.put("properties", arrayProperties);
 
@@ -107,11 +106,11 @@ public class Json {
             }
 
             json.put("nodes", arrayNodes);
-            for (int i = 0; i < data.getRelaList().size(); i++) {
+            for (Relation n : data.getRelaList()) {
                 JSONObject relation = new JSONObject();
-                relation.put("name", data.getRelaList().get(i).getName());
-                relation.put("node1", data.getRelaList().get(i).getNode1().getName());
-                relation.put("node2", data.getRelaList().get(i).getNode2().getName());
+                relation.put("name", n.getName());
+                relation.put("node1", n.getNode1().getName());
+                relation.put("node2", n.getNode2().getName());
                 arrayRelations.add(relation);
             }
             json.put("relations", arrayRelations);
