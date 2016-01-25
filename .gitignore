@@ -61,3 +61,5 @@ nbactions.xml
 nb-configuration.xml
 .nb-gradle/
 
+### Custom
+/save
