@@ -6,7 +6,10 @@
 
 import model.Data;
 import model.Json;
+import org.jfree.ui.RefineryUtilities;
+import view.Vue_Principal;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 /**
@@ -26,6 +29,21 @@ public class Main {
         System.out.println("Relation de test :");
         data.test();
         System.out.println(data.getRelaList().get(0));
+
+        //UserInterface
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        //IHM
+        Vue_Principal _fenetre = new Vue_Principal();
+
+        RefineryUtilities.centerFrameOnScreen(_fenetre);
+
+        _fenetre.setVisible(true);
+
 
         //CommandControl
         Scanner sc = new Scanner(System.in);
