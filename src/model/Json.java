@@ -4,7 +4,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -77,21 +76,19 @@ public class Json {
     }
 
     public static Data extract(String inputFilePath) {
-
         return null;
     }
 
-    public static void export(Data data,File fileOuputPath) {
+    public static void export(Data data, String outputFilePath) {
         if (data != null) {
-
-            System.out.println(fileOuputPath);
+            System.out.println(outputFilePath);
             JSONObject json = new JSONObject();
             JSONArray arrayNodes = new JSONArray();
             JSONArray arrayRelations = new JSONArray();
             for (Node n : data.getNodeList()) {
                 JSONObject node = new JSONObject();
                 node.put("name", n.getName());
-                if(n.getType() != null){
+                if (n.getType() != null) {
                     node.put("type", n.getType());
                 }
                 JSONArray arrayLabels = new JSONArray();
@@ -99,12 +96,9 @@ public class Json {
                 for (String label : n.getLabels()) {
                     arrayLabels.add(label);
                 }
-
-
                 for (String properties : n.getProperties()) {
                     arrayProperties.add(properties);
                 }
-
                 node.put("name", n.getName());
                 node.put("labels", arrayProperties);
                 node.put("properties", arrayProperties);
@@ -124,7 +118,7 @@ public class Json {
 
             try {
                 System.out.println("Writting JSON into file ...");
-                FileWriter jsonFileWriter = new FileWriter(fileOuputPath);
+                FileWriter jsonFileWriter = new FileWriter(outputFilePath);
                 jsonFileWriter.write(json.toJSONString());
                 jsonFileWriter.flush();
                 jsonFileWriter.close();

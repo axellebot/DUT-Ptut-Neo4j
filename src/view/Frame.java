@@ -45,6 +45,14 @@ public class Frame extends JFrame {
         this.pack();
     }
 
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
     public class GraphPanel extends JPanel {
 
         public JLabel lblText = new JLabel("Ceci est un graph");
@@ -62,7 +70,6 @@ public class Frame extends JFrame {
 
         }
     }
-
 
     public class PromptPanel extends JPanel {
         public JTextField txtPrompt = new JTextField("                                                                                                                                   ");
@@ -96,12 +103,11 @@ public class Frame extends JFrame {
     }
 
     public class ToolsPanel extends JPanel {
+        //Create a file chooser
+        final JFileChooser fileChooser = new JFileChooser();
         public JButton btnExport = new JButton("Exporter");
         public JButton btnImport = new JButton("Importer");
         public JButton btnRead = new JButton("Lire");
-
-        //Create a file chooser
-        final JFileChooser fileChooser = new JFileChooser();
 
         public ToolsPanel() {
             this.setBorder(BorderFactory.createTitledBorder("Outils"));
@@ -113,10 +119,7 @@ public class Frame extends JFrame {
                     if (f.isDirectory()) {
                         return true;
                     }
-                    if (model.Utils.getExtension(f).equals(model.Utils.json)) {
-                        return true;
-                    }
-                    return false;
+                    return Utils.getExtension(f).equals(Utils.json);
                 }
 
                 @Override
@@ -151,8 +154,15 @@ public class Frame extends JFrame {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     //This is where a real application would save the file.
-                    System.out.println("Saving: " + file.getAbsolutePath());
-                    Json.export(data, file);
+
+                    if (Utils.getExtension(file) == null) {
+                        Json.export(data, file.getAbsolutePath() + ".json");
+                    } else if (Utils.getExtension(file).equals(Utils.json)) {
+                        Json.export(data, file.getAbsolutePath());
+                    } else {
+                        Json.export(data, file.getAbsolutePath() + ".json");
+                    }
+
                 } else {
                     System.out.println("Save command cancelled by user.");
                 }
@@ -162,8 +172,6 @@ public class Frame extends JFrame {
                 int returnVal = fileChooser.showOpenDialog(this);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    //This is where a real application would open the file.
-                    System.out.println("Opening: " + file.getAbsoluteFile());
                     Json.extract(file.getAbsolutePath());
                 } else {
                     System.out.println("Open command cancelled by user.");
@@ -172,26 +180,15 @@ public class Frame extends JFrame {
             btnRead.addActionListener(e -> {
                 //In response to a button click:
                 int returnVal = fileChooser.showOpenDialog(this);
-                System.out.println(returnVal);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    //This is where a real application would open the file.
-                    System.out.println("Opening: " + file.getAbsoluteFile());
                     Json.read(file.getAbsolutePath());
                 } else {
-                    System.out.println("Open command cancelled by user.");
+                    System.out.println("Read command cancelled by user.");
                 }
             });
         }
 
-    }
-
-    public Data getData() {
-        return data;
-    }
-
-    public void setData(Data data) {
-        this.data = data;
     }
 }
 
