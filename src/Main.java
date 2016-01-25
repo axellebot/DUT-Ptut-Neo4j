@@ -20,15 +20,17 @@ public class Main {
 
         System.out.println("Bienvenue sur Neo4J Remake");
 
-        //read Json
-        Json test = new Json("D:\\_tmp\\IUT-Ptut\\model.json");
-        test.read();
-
-        //test
+        //test Data
         Data data = new Data();
         System.out.println("Relation de test :");
         data.test();
         System.out.println(data.getRelaList().get(0));
+
+        //Json
+        Json json = new Json();
+        json.read();
+
+        json.export(data);
 
         //UserInterface
         try {
