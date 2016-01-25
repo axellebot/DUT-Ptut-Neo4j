@@ -7,7 +7,7 @@
 import model.Data;
 import model.Json;
 import org.jfree.ui.RefineryUtilities;
-import view.Vue_Principal;
+import view.Frame;
 
 import javax.swing.*;
 import java.util.Scanner;
@@ -39,7 +39,7 @@ public class Main {
         }
 
         //IHM
-        Vue_Principal _fenetre = new Vue_Principal();
+        Frame _fenetre = new Frame();
 
         RefineryUtilities.centerFrameOnScreen(_fenetre);
 
