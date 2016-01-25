@@ -16,32 +16,28 @@ public class Frame extends JFrame {
         graphPanel = new GraphPanel();
         promptPanel = new PromptPanel();
         toolsPanel = new ToolsPanel();
+
         //placement des panneaux
         this.getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints cont = new GridBagConstraints();
         cont.fill = GridBagConstraints.BOTH;
         cont.gridx = 0;
         cont.gridy = 0;
-        cont.gridwidth = 5;
-        cont.gridheight = 15;
+        cont.gridheight = 2;
         this.getContentPane().add(toolsPanel, cont);
         cont.gridx = 1;
         cont.gridy = 0;
-        cont.gridheight = 13;
-        cont.gridwidth = 10;
+        cont.gridheight = 1;
+
         this.getContentPane().add(graphPanel, cont);
         cont.gridx = 1;
         cont.gridy = 1;
-        cont.gridheight = 2;
-        cont.gridwidth = 10;
         this.getContentPane().add(promptPanel, cont);
     }
 
     public class GraphPanel extends JPanel {
 
-        public JButton btnStart = new JButton("Start");
-        public JButton btnStop = new JButton("Stop");
-
+        public JLabel lblText = new JLabel("Ceci est un graph");
 
         public GraphPanel() {
             this.setBorder(BorderFactory.createTitledBorder("Start/Stop"));
@@ -51,9 +47,8 @@ public class Frame extends JFrame {
             cont.fill = GridBagConstraints.BOTH;
             cont.gridx = 0;
             cont.gridy = 0;
-            this.add(btnStart, cont);
-            cont.gridy = 1;
-            this.add(btnStop, cont);
+            this.add(lblText, cont);
+
         }
     }
 
@@ -61,13 +56,31 @@ public class Frame extends JFrame {
     public class PromptPanel extends JPanel {
         public JButton btnGenerate = new JButton("Géneration");
 
+
         public PromptPanel() {
+
         }
     }
 
     public class ToolsPanel extends JPanel {
-        public ToolsPanel() {
+        public JButton btnExport = new JButton("Exporter");
+        public JButton btnImport = new JButton("Importer");
+        public JButton btnRead = new JButton("Lire");
 
+        public ToolsPanel() {
+            this.setBorder(BorderFactory.createTitledBorder("Outils"));
+
+            this.add(btnExport);
+            this.add(btnImport);
+            this.add(btnRead);
+            btnExport.addActionListener(e -> {
+                //Create a file chooser
+                final JFileChooser fc = new JFileChooser();
+            });
+            btnImport.addActionListener(e -> {
+            });
+            btnRead.addActionListener(e -> {
+            });
         }
 
     }
