@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import model.CommandControl;
 import model.Data;
 import model.Json;
 import org.jfree.ui.RefineryUtilities;
@@ -26,6 +27,9 @@ public class Main {
         data.test();
         System.out.println(data.getRelaList().get(0));
 
+        //test Parser
+        CommandControl.parser("CREATE (Paul:Person)");
+
         //Json
         Json.read();
 
@@ -46,7 +50,7 @@ public class Main {
         _fenetre.setVisible(true);
 
 
-        //CommandControl
+        //model.CommandControl
         Scanner sc = new Scanner(System.in);
         String str;
         String exitCommand = "exit";
