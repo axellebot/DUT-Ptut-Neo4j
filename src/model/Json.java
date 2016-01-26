@@ -98,7 +98,7 @@ public class Json {
 
             //-------------Relations-------------
             relationList = new ArrayList<>();
-            for (Object relationJson : arrayNodes) {
+            for (Object relationJson : arrayRelations) {
                 JSONObject relation = (JSONObject) relationJson;
                 String relationName = (String) relation.get("name");
                 Node node1 = Node.findNodeInNodeList(nodeList, (String) relation.get("node1"));
