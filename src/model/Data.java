@@ -22,7 +22,6 @@ public class Data extends Observable {
         this.relationList = relationList;
     }
 
-
     public void test() {
         nodeList.add(new Node("Paul"));
         nodeList.get(0).addLabel("Paul");
@@ -80,5 +79,21 @@ public class Data extends Observable {
             }
         }
         return null;
+    }
+
+    public String toString() {
+        String display;
+
+        display = "////////////////NODES////////////////\n";
+        for (Node node : this.nodeList) {
+            display += node.toString() + "\n";
+        }
+
+        display += "////////////////RELATIONS////////////////\n";
+        for (Relation relation : this.relationList) {
+            display += relation.toString() + "\n";
+        }
+
+        return display;
     }
 }
