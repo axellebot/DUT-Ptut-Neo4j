@@ -1,6 +1,7 @@
 package view;
 
 import control.Observable;
+import model.CommandControl;
 import model.Data;
 import model.Json;
 import model.Utils;
@@ -81,7 +82,7 @@ public class Frame extends JFrame {
     }
 
     public class PromptPanel extends JPanel {
-        public JTextField txtPrompt = new JTextField("                                                                                                                                                                                                                                                 ");
+        public JTextField txtPrompt = new JTextField(60);
         public JButton btnGenerate = new JButton("Generate");
 
 
@@ -104,21 +105,8 @@ public class Frame extends JFrame {
 
 
             btnGenerate.addActionListener(e -> {
-
-                //Create a file chooser
-                final JFileChooser fc = new JFileChooser();
-            });
-            txtPrompt.addFocusListener(new FocusListener() {
-                @Override
-                public void focusGained(FocusEvent focusEvent) {
-                    txtPrompt.setText("");
-
-                }
-
-                @Override
-                public void focusLost(FocusEvent focusEvent) {
-
-                }
+                //Call parser
+                CommandControl.parser(data, txtPrompt.getText());
             });
         }
 
