@@ -82,7 +82,7 @@ public class Frame extends JFrame {
     }
 
     public class PromptPanel extends JPanel {
-        public JTextField txtPrompt = new JTextField(60);
+        public JTextField txtPrompt = new JTextField(100);
         public JButton btnGenerate = new JButton("Generate");
 
 

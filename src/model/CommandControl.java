@@ -18,17 +18,19 @@ public abstract class CommandControl {
             //split by ' ' between CRUD and node or relation
             //like "CREATE (Paul:Person),(Sarah:Person{age:'25',ville:'Lyon'})"
             String[] parts = command.split(" ");
-            if(parts[0].equals("MATCH")){
+            if(parts[0].toLowerCase().equals("match")){
                 //si on MATCH ALL (*)
                 if(parts[1].equals("*")) System.out.println(data);
                 else {
+                    String[] subpart = parts[1].split("\\("); subpart = subpart[1].split("\\)");
+                    System.out.println(data.getNodeByName(subpart[0]));
                     for (int i = 0; i < parts.length; i++) {
-                        if (parts[i].equals("RETURN"))
+                        if (parts[i].toLowerCase().equals("return"))
                             returnCommand(data.getNodeByName(parts[i + 1]));
                     }
                 }
             }
-            else if(parts[0].equals("CREATE")){
+            else if(parts[0].toLowerCase().equals("create")){
                 //split by ',' between nodes
                 String[] subparts = command.split(",");
                 //for each parts between the ','
@@ -53,11 +55,11 @@ public abstract class CommandControl {
                     data.getNodeList().add(new Node(labels[0], labelList, propList));
                 }
                 for(int i = 0; i < parts.length; i++){
-                    if(parts[i].equals("RETURN"))
+                    if(parts[i].toLowerCase().equals("return"))
                         returnCommand(data.getNodeByName(parts[i+1]));
                 }
             }
-            else if(parts[0].equals("DELETE")){
+            else if(parts[0].toLowerCase().equals("delete")){
                 data.getNodeList().remove(data.getNodeByName(parts[1]));
             }
         }
