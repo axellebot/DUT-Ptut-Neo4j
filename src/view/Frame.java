@@ -8,6 +8,8 @@ import model.Utils;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 
 public class Frame extends JFrame {
@@ -78,7 +80,7 @@ public class Frame extends JFrame {
     }
 
     public class PromptPanel extends JPanel {
-        public JTextField txtPrompt = new JTextField("                                                                                                                                   ");
+        public JTextField txtPrompt = new JTextField("                                                                                                                                                                                                                                                 ");
         public JButton btnGenerate = new JButton("Generate");
 
 
@@ -105,7 +107,20 @@ public class Frame extends JFrame {
                 //Create a file chooser
                 final JFileChooser fc = new JFileChooser();
             });
+            txtPrompt.addFocusListener(new FocusListener() {
+                @Override
+                public void focusGained(FocusEvent focusEvent) {
+                    txtPrompt.setText("");
+
+                }
+
+                @Override
+                public void focusLost(FocusEvent focusEvent) {
+
+                }
+            });
         }
+
     }
 
     public class ToolsPanel extends JPanel {
@@ -198,5 +213,6 @@ public class Frame extends JFrame {
         }
 
     }
+
 }
 

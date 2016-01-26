@@ -35,7 +35,7 @@ public class Node {
         this.name = name;
         this.labels = labels;
         properties = new ArrayList();
-        System.out.print("Création du noeud " + name);
+        System.out.println("Création du noeud " + name);
     }
 
     /**
@@ -49,7 +49,7 @@ public class Node {
         this.name = name;
         this.labels = labels;
         this.properties = properties;
-        System.out.print("Création du noeud " + name);
+        System.out.println("Création du noeud " + name);
     }
 
     public static Node findNodeInNodeList(ArrayList<Node> nodeList, String nodeName) {
