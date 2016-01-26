@@ -9,12 +9,9 @@ import java.util.ArrayList;
  */
 
 public class Node {
-
     private String name;
-    private String type;
     private ArrayList<String> labels;
     private ArrayList<String> properties;
-
 
     /**
      * Constructeur model.Node
@@ -23,12 +20,10 @@ public class Node {
      */
     public Node(String name) {
         this.name = name;
-        this.type = null;
         labels = new ArrayList();
         properties = new ArrayList();
         System.out.println("Création du noeud " + name);
     }
-
 
     /**
      * Constructeur model.Node
@@ -57,26 +52,27 @@ public class Node {
         System.out.print("Création du noeud " + name);
     }
 
+
     /**
-     * Getter de type de la node
+     * Getter node's name
      *
-     * @return String type
+     * @return String node's name
      */
-    public String getType(){
-        return type;
+    public String getName() {
+        return name;
     }
 
     /**
-     *Setter du type de la node
+     * Setter node's name
      *
-     * @param type String
+     * @param name String node's name
      */
-    public void setType(String type){
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
-     * Getter de la liste de labels du noeud
+     * Getter de la node's labels list
      *
      * @return ArrayList<String> Labels
      */
@@ -85,9 +81,9 @@ public class Node {
     }
 
     /**
-     * Ajouter  labels un noeud
+     * Add Labels to a node
      *
-     * @param labels ArrayList de labels
+     * @param labels ArrayList String
      */
     public void setLabels(ArrayList<String> labels) {
         this.labels = labels;
@@ -105,10 +101,10 @@ public class Node {
     /**
      * Ajouter propriétés à un noeud
      *
-     * @param prop
+     * @param properties
      */
-    public void setProperties(ArrayList<String> prop) {
-        this.properties = prop;
+    public void setProperties(ArrayList<String> properties) {
+        this.properties = properties;
     }
 
     /**
@@ -152,12 +148,12 @@ public class Node {
     /**
      * Ajouter ou changer une propriété d'un noeud à un indice précis
      *
-     * @param prop propriété
-     * @param i    indice >=0
+     * @param properties propriété
+     * @param i          indice >=0
      */
-    public void setPropertieIndex(String prop, int i) {
+    public void setPropertieIndex(String properties, int i) {
         if (i < this.properties.size())
-            this.properties.set(i, prop);
+            this.properties.set(i, properties);
         System.out.println("Index en dehors de la liste de propriétés");
     }
 
@@ -174,27 +170,9 @@ public class Node {
     /**
      * Ajouter une propriété à un noeud
      *
-     * @param prop propriété
+     * @param properties propriété
      */
-    public void addPropertie(String prop) {
-        this.properties.add(prop);
-    }
-
-    /**
-     * Getter nom du noeud
-     *
-     * @return
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Setter Nom du noeud
-     *
-     * @param name nom du noeud
-     */
-    public void setName(String name) {
-        this.name = name;
+    public void addPropertie(String properties) {
+        this.properties.add(properties);
     }
 }
