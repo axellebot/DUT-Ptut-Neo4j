@@ -7,6 +7,7 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Json {
 
@@ -30,7 +31,6 @@ public class Json {
             System.out.println("-------------Nodes-------------");
             //nodes
             String name = "";
-            String type = "";
             String properties = "";
             String labels = "";
             for (Object nodeJson : arrayNodes) {
@@ -41,9 +41,6 @@ public class Json {
                 name = (String) node.get("name");
                 System.out.println(name);
 
-                type = (String) node.get("type");
-                System.out.println("type: " + type);
-
                 properties = "";
                 for (Object propertiesJson : arrayProperties) {
                     properties += propertiesJson + " ";
@@ -51,7 +48,7 @@ public class Json {
                 System.out.println("Properties : {" + properties + "}");
 
                 labels = "";
-                for (Object labelJson : arrayProperties) {
+                for (Object labelJson : arrayLabels) {
                     labels += labelJson + " ";
                 }
                 System.out.println("Labels : {" + labels + "}");
@@ -76,8 +73,44 @@ public class Json {
     }
 
     public static Data extract(String inputFilePath) {
-        return null;
+        ArrayList<Node> nodeList = null;
+        ArrayList<Relation> relationList = null;
+        JSONParser parser = new JSONParser();
+
+        System.out.println("Extracting JSON file to Java program");
+
+        try {
+            FileReader fileReader = new FileReader(inputFilePath);
+
+            JSONObject json = (JSONObject) parser.parse(fileReader);
+            JSONArray arrayNodes = (JSONArray) json.get("nodes");
+            JSONArray arrayRelations = (JSONArray) json.get("relations");
+
+            //-------------Nodes-------------
+            nodeList = new ArrayList<>();
+            for (Object nodeJson : arrayNodes) {
+                JSONObject node = (JSONObject) nodeJson;
+                String nodeName = (String) node.get("name");
+                ArrayList<String> listProperties = (JSONArray) node.get("properties");
+                ArrayList<String> listLabels = (JSONArray) node.get("labels");
+                nodeList.add(new Node(nodeName, listLabels, listProperties));
+            }
+
+            //-------------Relations-------------
+            relationList = new ArrayList<>();
+            for (Object relationJson : arrayNodes) {
+                JSONObject relation = (JSONObject) relationJson;
+                String relationName = (String) relation.get("name");
+                Node node1 = Node.findNodeInNodeList(nodeList, (String) relation.get("node1"));
+                Node node2 = Node.findNodeInNodeList(nodeList, (String) relation.get("node2"));
+                relationList.add(new Relation(relationName, node1, node2));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return new Data(nodeList, relationList);
     }
+
 
     public static void export(Data data, String outputFilePath) {
         if (data != null) {
@@ -88,9 +121,7 @@ public class Json {
             for (Node n : data.getNodeList()) {
                 JSONObject node = new JSONObject();
                 node.put("name", n.getName());
-                if (n.getType() != null) {
-                    node.put("type", n.getType());
-                }
+
                 JSONArray arrayLabels = new JSONArray();
                 JSONArray arrayProperties = new JSONArray();
                 for (String label : n.getLabels()) {
@@ -107,7 +138,7 @@ public class Json {
             }
 
             json.put("nodes", arrayNodes);
-            for (Relation n : data.getRelaList()) {
+            for (Relation n : data.getRelationList()) {
                 JSONObject relation = new JSONObject();
                 relation.put("name", n.getName());
                 relation.put("node1", n.getNode1().getName());
