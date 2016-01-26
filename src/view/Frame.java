@@ -56,17 +56,13 @@ public class Frame extends JFrame {
     public class GraphPanel extends JPanel {
 
         public JLabel lblText = new JLabel("Ceci est un graph");
+        public VisuGraph graph = new VisuGraph();
 
         public GraphPanel() {
             this.setBorder(BorderFactory.createTitledBorder("Graph"));
             this.setLayout(new GridBagLayout());
-            GridBagConstraints cont = new GridBagConstraints();
-
-            cont.fill = GridBagConstraints.BOTH;
-            cont.gridx = 0;
-            cont.gridy = 0;
-            this.add(lblText, cont);
             this.setPreferredSize(new Dimension(1000, 600));
+            this.add(graph);
 
         }
     }
