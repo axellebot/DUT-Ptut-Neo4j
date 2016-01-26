@@ -52,6 +52,13 @@ public class Node {
         System.out.print("Création du noeud " + name);
     }
 
+    public static Node findNodeInNodeList(ArrayList<Node> nodeList, String nodeName) {
+        for (Node node : nodeList) {
+            if (node.getName().equals(nodeName))
+                return node;
+        }
+        return null;
+    }
 
     /**
      * Getter node's name
