@@ -27,7 +27,7 @@ public class Main {
         System.out.println(data.getRelationList().get(0));
 
         //test parser
-        CommandControl.parser("CREATE (Paul:Parson)");
+        CommandControl.parser(data, "CREATE (Paul:Person),(Sarah:Person{age:'25';ville:'Lyon'})");
 
         //UserInterface
         try {
