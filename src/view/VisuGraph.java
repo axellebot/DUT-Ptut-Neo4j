@@ -30,7 +30,6 @@ public class VisuGraph extends JPanel {
     }
 
     public void update(Data data) {
-
         graph = new SingleGraph("Graph");
         for (model.Node n : data.getNodeList()) {
             graph.addNode(n.getName());
@@ -69,7 +68,9 @@ public class VisuGraph extends JPanel {
             view = viewer.addDefaultView(false);   // false indicates "no JFrame".
             this.add((Component) view);
             //view.requestFocus();
+            this.revalidate();
         }
+        System.out.println("fin update VisuGraph");
     }
 
     public void update2() {

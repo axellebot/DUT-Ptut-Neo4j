@@ -24,7 +24,6 @@ public class Main {
         Data data = new Data();
         System.out.println("Relation de test :");
         data.test();
-        System.out.println(data.getRelationList().get(0));
 
         //test parser
         CommandControl.parser(data, "CREATE (Paul:Person),(Sarah:Person{age:'25';ville:'Lyon'})");
@@ -38,7 +37,6 @@ public class Main {
 
         //IHM
         Frame _fenetre = new Frame();
-        _fenetre.setData(data);
 
         RefineryUtilities.centerFrameOnScreen(_fenetre);
 

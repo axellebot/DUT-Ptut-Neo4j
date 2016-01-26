@@ -24,6 +24,7 @@ public class Data extends Observable {
      * @param relationList relations list
      */
     public Data(ArrayList<Node> nodeList, ArrayList<Relation> relationList) {
+        super();
         this.nodeList = nodeList;
         this.relationList = relationList;
     }
@@ -106,5 +107,6 @@ public class Data extends Observable {
     public void changeData(Data data){
         this.nodeList = data.getNodeList();
         this.relationList = data.getRelationList();
+        this.notifier();
     }
 }

@@ -24,7 +24,6 @@ public class Frame extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         data = new Data();
-        //data.test();
 
         graphPanel = new GraphPanel();
         promptPanel = new PromptPanel();
@@ -32,6 +31,7 @@ public class Frame extends JFrame {
 
         //ajout d'observateurs
         data.addObservateur(graphPanel);
+        System.out.println("nombre observateur: " + data.getNumberObervateur());
 
         //placement des panneaux
         this.getContentPane().setLayout(new GridBagLayout());
@@ -56,10 +56,11 @@ public class Frame extends JFrame {
     public Data getData() {
         return data;
     }
-
+/*
     public void setData(Data data) {
-        this.data = data;
+        this.data.changeData(data);
     }
+    */
 
     public class GraphPanel extends JPanel implements control.Observateur{
 
@@ -193,9 +194,10 @@ public class Frame extends JFrame {
                 int returnVal = fileChooser.showOpenDialog(this);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
+                    System.out.println("nombre Observateur avant importation: " + data.getNumberObervateur());
+                    //System.out.println(data);
                     data.changeData(Json.extract(file.getAbsolutePath()));
-                    System.out.println(data);
-                    data.notifier();
+                    System.out.println("nombre Observateur après importation: " + data.getNumberObervateur());
                 } else {
                     System.out.println("Open command cancelled by user.");
                 }
