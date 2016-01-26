@@ -1,5 +1,6 @@
 package view;
 
+import control.Observable;
 import model.Data;
 import model.Json;
 import model.Utils;
@@ -21,9 +22,14 @@ public class Frame extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         data = new Data();
+        //data.test();
+
         graphPanel = new GraphPanel();
         promptPanel = new PromptPanel();
         toolsPanel = new ToolsPanel();
+
+        //ajout d'observateurs
+        data.addObservateur(graphPanel);
 
         //placement des panneaux
         this.getContentPane().setLayout(new GridBagLayout());
@@ -53,17 +59,21 @@ public class Frame extends JFrame {
         this.data = data;
     }
 
-    public class GraphPanel extends JPanel {
+    public class GraphPanel extends JPanel implements control.Observateur{
 
         public JLabel lblText = new JLabel("Ceci est un graph");
-        public VisuGraph graph = new VisuGraph();
+        public VisuGraph graph = new VisuGraph(data);
 
-        public GraphPanel() {
+        public GraphPanel(){
             this.setBorder(BorderFactory.createTitledBorder("Graph"));
             this.setLayout(new GridBagLayout());
             this.setPreferredSize(new Dimension(1000, 600));
             this.add(graph);
 
+        }
+        public void update(){
+            graph.update(data);
+            System.out.println("update de data");
         }
     }
 
@@ -168,8 +178,9 @@ public class Frame extends JFrame {
                 int returnVal = fileChooser.showOpenDialog(this);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    data = Json.extract(file.getAbsolutePath());
+                    data.changeData(Json.extract(file.getAbsolutePath()));
                     System.out.println(data);
+                    data.notifier();
                 } else {
                     System.out.println("Open command cancelled by user.");
                 }

@@ -1,6 +1,8 @@
 package view;
 
 
+import model.Data;
+import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -18,44 +20,55 @@ public class VisuGraph extends JPanel {
     Viewer viewer;
     View view;
 
-    public VisuGraph() {
+    public VisuGraph(Data data) {
         setVisible(true);
         setPreferredSize(new Dimension(950, 550));
         this.setLayout(new BorderLayout());
+
+        update(data);
+        //graph.display();
+    }
+
+    public void update(Data data) {
+
         graph = new SingleGraph("Graph");
-        for (int i = 0; i < 10; i++) {
-            graph.addNode("a" + i);
+        for (model.Node n : data.getNodeList()) {
+            graph.addNode(n.getName());
+            graph.getNode(n.getName()).setAttribute("ui.label", n.getName());
         }
-        for (int i = 0; i < 9; i++) {
-            graph.addEdge("a" + (2 * i), "a" + i, "a" + (i + 1));
+        for (model.Relation r : data.getRelationList()) {
+            graph.addEdge(r.getName(), r.getNode1().getName(), r.getNode2().getName());
+            //graph.getEdge(r.getName()).setAttribute("iu.label", "test");
+        }
+        for (Edge e : graph.getEachEdge()) {
+            e.setAttribute("iu.label", "test");
         }
         String styleNode =
-                "node {\n" +
-                        "\tsize: 50px;\n" +
-                        "\tshape: box;\n" +
-                        "\tfill-color: green;\n" +
-                        "\tstroke-mode: plain;\n" +
-                        "\tstroke-color: yellow;\n" +
+                "node {" +
+                        "size: 50px;" +
+                        "shape: box;" +
+                        "fill-color: rgb(51,51,51);" +
+                        "stroke-mode: plain;" +
+                        "stroke-color: yellow; " +
+                        "text-color: blue;" +
+                        "text-alignment: above;" +
+                        "text-size: 20px;" +
+                        "}" +
+                        "edge{" +
+                        "text-mode: normal;" +
+                        "text-alignment:along;" +
                         "}";
         graph.addAttribute("ui.stylesheet", styleNode);
         graph.addAttribute("ui.quality");
         graph.addAttribute("ui.antialias");
-        update();
-        //graph.display();
-    }
-
-    public void update() {
         if (graph != null) {
-            try {
-                this.remove((Component) viewer.getView(Viewer.DEFAULT_VIEW_ID));
-            } catch (Exception ex) {
-            }
+            this.removeAll();
             viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
-                    //Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+            //Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
             viewer.enableAutoLayout();
             view = viewer.addDefaultView(false);   // false indicates "no JFrame".
-            this.add((Component)view);
-            view.requestFocus();
+            this.add((Component) view);
+            //view.requestFocus();
         }
     }
 

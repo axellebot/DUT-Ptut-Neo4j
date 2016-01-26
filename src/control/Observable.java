@@ -11,15 +11,20 @@ public abstract class Observable {
 
     public Observable(Observateur o) {
         listObservateur = new ArrayList<>();
+        listObservateur.add(o);
+        System.out.println("nombre d'observateur: " + listObservateur.size());
     }
 
-    public void addObservateur(Observateur o) {
+    public  void addObservateur(Observateur o) {
         listObservateur.add(o);
+        System.out.println("nombre d'observateur: " + listObservateur.size());
     }
 
     public void notifier() {
-        for (int i = 0; i < listObservateur.size(); i++) {
-            listObservateur.get(i).update();
+        System.out.println("nombre d'observateur: " + listObservateur.size());
+        for (Observateur ob : listObservateur) {
+            ob.update();
+            System.out.println("update");
         }
     }
 }

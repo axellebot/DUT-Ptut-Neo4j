@@ -9,6 +9,12 @@ public class Data extends Observable {
     private ArrayList<Relation> relationList;
 
     public Data() {
+        super();
+        nodeList = new ArrayList<>();
+        relationList = new ArrayList<>();
+    }
+    public Data(control.Observateur ob) {
+        super(ob);
         nodeList = new ArrayList<>();
         relationList = new ArrayList<>();
     }
@@ -95,5 +101,10 @@ public class Data extends Observable {
         }
 
         return display;
+    }
+
+    public void changeData(Data data){
+        this.nodeList = data.getNodeList();
+        this.relationList = data.getRelationList();
     }
 }
