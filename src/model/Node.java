@@ -188,7 +188,7 @@ public class Node {
         String display = new String();
         display += getName() + '\n';
         display += "----Labels----\n";
-        for (String label : properties) {
+        for (String label : labels) {
             display += label + "\t";
         }
         display += "\n";
