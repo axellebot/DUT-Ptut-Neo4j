@@ -182,4 +182,21 @@ public class Node {
     public void addPropertie(String properties) {
         this.properties.add(properties);
     }
+
+    @Override
+    public String toString() {
+        String display = new String();
+        display += getName() + '\n';
+        display += "----Labels----\n";
+        for (String label : properties) {
+            display += label + "\t";
+        }
+        display += "\n";
+        display += "----Properties----\n";
+        for (String propertie : properties) {
+            display += propertie + "\t";
+        }
+        display += "\n";
+        return display;
+    }
 }
