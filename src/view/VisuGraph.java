@@ -37,26 +37,18 @@ public class VisuGraph extends JPanel {
         }
         for (model.Relation r : data.getRelationList()) {
             graph.addEdge(r.getName(), r.getNode1().getName(), r.getNode2().getName());
-            //graph.getEdge(r.getName()).setAttribute("iu.label", "test");
+            graph.getEdge(r.getName()).setAttribute("ui.label", r.getName());
         }
-        for (Edge e : graph.getEachEdge()) {
-            e.setAttribute("iu.label", "test");
-        }
-        String styleNode =
-                "node {" +
-                        "size: 50px;" +
-                        "shape: box;" +
-                        "fill-color: rgb(51,51,51);" +
-                        "stroke-mode: plain;" +
-                        "stroke-color: yellow; " +
-                        "text-color: blue;" +
-                        "text-alignment: above;" +
-                        "text-size: 20px;" +
-                        "}" +
-                        "edge{" +
-                        "text-mode: normal;" +
-                        "text-alignment:along;" +
-                        "}";
+        final String styleNode =
+                "node{\n" +
+                        "shape: cross; size: 50px; fill-color: rgb(51,51,51);\n" +
+                        "text-alignment: center; text-color: blue; text-size: 20px;\n" +
+                        "}\n" +
+                        "edge{\n" +
+                        "text-mode: normal; text-alignment: along; text-color: blue; text-size: 18px;\n" +
+                        "}\n";
+
+        System.out.println(styleNode);
         graph.addAttribute("ui.stylesheet", styleNode);
         graph.addAttribute("ui.quality");
         graph.addAttribute("ui.antialias");

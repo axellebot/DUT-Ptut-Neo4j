@@ -24,7 +24,7 @@ public class Frame extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         data = new Data();
-
+        data.test();
         graphPanel = new GraphPanel();
         promptPanel = new PromptPanel();
         toolsPanel = new ToolsPanel();
