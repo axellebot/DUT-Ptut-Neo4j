@@ -13,6 +13,7 @@ public class Data extends Observable {
         nodeList = new ArrayList<>();
         relationList = new ArrayList<>();
     }
+
     public Data(control.Observateur ob) {
         super(ob);
         nodeList = new ArrayList<>();
@@ -41,15 +42,15 @@ public class Data extends Observable {
         return nodeList;
     }
 
-    public Node getNodeByName(String name){
-        for(Node n : nodeList){
-            if(n.getName().equals(name)) return n;
-        }
-        return null;
-    }
-
     public void setNodeList(ArrayList<Node> nodeList) {
         this.nodeList = nodeList;
+    }
+
+    public Node getNodeByName(String name) {
+        for (Node n : nodeList) {
+            if (n.getName().equals(name)) return n;
+        }
+        return null;
     }
 
     public ArrayList<Relation> getRelationList() {
@@ -111,9 +112,19 @@ public class Data extends Observable {
         return display;
     }
 
-    public void changeData(Data data){
+    public void changeData(Data data) {
         this.nodeList = data.getNodeList();
         this.relationList = data.getRelationList();
         this.notifier();
+    }
+
+    public void check() {
+        for (Node node1 : nodeList) {
+            for (Node node2 : nodeList) {
+                if (node1 != node2 && node1.getName() == node2.getName()) {
+                    nodeList.remove(node2);
+                }
+            }
+        }
     }
 }
