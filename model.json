@@ -2,35 +2,35 @@
   "nodes": [
     {
       "name": "nom_noeud1",
-      "properties": [
-        "propriété1",
-        "propriétéX"
-      ],
       "labels": [
         "label1",
         "labelX"
+      ],
+      "properties": [
+        "propriété1",
+        "propriétéX"
       ]
     },
     {
       "name": "nom_noeud2",
-      "properties": [
-        "propriété1",
-        "propriétéX"
-      ],
       "labels": [
         "label1",
         "labelX"
+      ],
+      "properties": [
+        "propriété1",
+        "propriétéX"
       ]
     },
     {
       "name": "nom_noeud3",
-      "properties": [
-        "propriété1",
-        "propriétéX"
-      ],
       "labels": [
         "label1",
         "labelX"
+      ],
+      "properties": [
+        "propriété1",
+        "propriétéX"
       ]
     }
   ],
