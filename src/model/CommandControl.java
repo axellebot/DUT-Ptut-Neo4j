@@ -19,41 +19,53 @@ public abstract class CommandControl {
             //like "CREATE (Paul:Person),(Sarah:Person{age:'25',ville:'Lyon'})"
             String[] parts = command.split(" ");
             if(parts[0].equals("MATCH")){
-
-            }
-            else if(parts[0].equals("CREATE")){
-                if(validParenthesage(parts[1])){
-                    //split by ',' between nodes
-                    String[] subparts = parts[1].split(",");
-                    //for each parts between the ','
-                    for(String s : subparts) {
-                        //remove parentheses
-                        String[] subpart = s.split("\\("); subpart = subpart[1].split("\\)");
-                        //split by '{'
-                        String[] propSplit = subpart[0].split("\\{");
-                        ArrayList<String> propList = new ArrayList();
-                        if(propSplit.length > 1) {
-                            //remove '}'
-                            String[] properties = propSplit[1].split("\\}");
-                            //split by ';'
-                            String[] propParts = properties[0].split(";");
-                            for(String p : propParts) propList.add(p);
-                        }
-                        //split by ':'
-                        String[] labels = propSplit[0].split(":");
-                        ArrayList<String> labelList = new ArrayList();
-                        for(int i = 1; i < labels.length; i++)
-                            labelList.add(labels[i]);
-                        data.getNodeList().add(new Node(labels[0], labelList, propList));
+                //si on MATCH ALL (*)
+                if(parts[1].equals("*")) System.out.println(data);
+                else {
+                    for (int i = 0; i < parts.length; i++) {
+                        if (parts[i].equals("RETURN"))
+                            returnCommand(data.getNodeByName(parts[i + 1]));
                     }
                 }
-                else System.out.println("Commande invalide : erreur de parenthesage");
+            }
+            else if(parts[0].equals("CREATE")){
+                //split by ',' between nodes
+                String[] subparts = command.split(",");
+                //for each parts between the ','
+                for(String s : subparts) {
+                    //remove parentheses
+                    String[] subpart = s.split("\\("); subpart = subpart[1].split("\\)");
+                    //split by '{'
+                    String[] propSplit = subpart[0].split("\\{");
+                    ArrayList<String> propList = new ArrayList();
+                    if(propSplit.length > 1) {
+                        //remove '}'
+                        String[] properties = propSplit[1].split("\\}");
+                        //split by ';'
+                        String[] propParts = properties[0].split(";");
+                        for(String p : propParts) propList.add(p);
+                    }
+                    //split by ':'
+                    String[] labels = propSplit[0].split(":");
+                    ArrayList<String> labelList = new ArrayList();
+                    for(int i = 1; i < labels.length; i++)
+                        labelList.add(labels[i]);
+                    data.getNodeList().add(new Node(labels[0], labelList, propList));
+                }
+                for(int i = 0; i < parts.length; i++){
+                    if(parts[i].equals("RETURN"))
+                        returnCommand(data.getNodeByName(parts[i+1]));
+                }
             }
             else if(parts[0].equals("DELETE")){
-
+                data.getNodeList().remove(data.getNodeByName(parts[1]));
             }
         }
         else System.out.println("Commande invalide : erreur de parenthesage");
+    }
+
+    public static void returnCommand(Node node){
+        //afficher la node sur le graphe lAAAAAAAAAAAAAAAAAAAAA
     }
 
     public static boolean validParenthesage(String s) {

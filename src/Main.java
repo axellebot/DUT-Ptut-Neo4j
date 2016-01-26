@@ -26,7 +26,8 @@ public class Main {
         data.test();
 
         //test parser
-        CommandControl.parser(data, "CREATE (Paul:Person),(Sarah:Person{age:'25';ville:'Lyon'})");
+        CommandControl.parser(data, "CREATE (Pierre Salomon:Person),(Sarah:Person{age:'25';ville:'Lyon'})");
+        //CommandControl.parser(data, "MATCH (Pierre Salomon:Person),(Sarah:Person{age:'25';ville:'Lyon'})");
 
         //UserInterface
         try {

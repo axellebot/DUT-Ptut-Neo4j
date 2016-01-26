@@ -41,6 +41,13 @@ public class Data extends Observable {
         return nodeList;
     }
 
+    public Node getNodeByName(String name){
+        for(Node n : nodeList){
+            if(n.getName().equals(name)) return n;
+        }
+        return null;
+    }
+
     public void setNodeList(ArrayList<Node> nodeList) {
         this.nodeList = nodeList;
     }
