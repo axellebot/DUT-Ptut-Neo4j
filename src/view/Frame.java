@@ -168,7 +168,8 @@ public class Frame extends JFrame {
                 int returnVal = fileChooser.showOpenDialog(this);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    Json.extract(file.getAbsolutePath());
+                    data = Json.extract(file.getAbsolutePath());
+                    System.out.println(data);
                 } else {
                     System.out.println("Open command cancelled by user.");
                 }
