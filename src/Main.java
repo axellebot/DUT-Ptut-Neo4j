@@ -6,7 +6,6 @@
 
 import model.CommandControl;
 import model.Data;
-import model.Json;
 import org.jfree.ui.RefineryUtilities;
 import view.Frame;
 
@@ -25,7 +24,7 @@ public class Main {
         Data data = new Data();
         System.out.println("Relation de test :");
         data.test();
-        System.out.println(data.getRelaList().get(0));
+        System.out.println(data.getRelationList().get(0));
 
         //test parser
         CommandControl.parser("CREATE (Paul:Parson)");
