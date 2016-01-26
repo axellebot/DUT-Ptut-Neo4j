@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import model.CommandControl;
 import model.Data;
 import model.Json;
 import org.jfree.ui.RefineryUtilities;
@@ -25,6 +26,9 @@ public class Main {
         System.out.println("Relation de test :");
         data.test();
         System.out.println(data.getRelaList().get(0));
+
+        //test parser
+        CommandControl.parser("CREATE (Paul:Parson)");
 
         //UserInterface
         try {
