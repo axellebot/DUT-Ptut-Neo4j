@@ -183,6 +183,19 @@ public class Node {
         this.properties.add(properties);
     }
 
+    public boolean setPropertie(String prop, String propLabel){
+        for(String s : properties){
+            String[] propPart = s.split(":");
+            if(propPart[0].equals(prop)){
+                this.properties.remove(s);
+                this.properties.add(prop+":\""+propLabel+"\"");
+                return true;
+            }
+        }
+        properties.add(prop+":\""+propLabel+"\"");
+        return true;
+    }
+
     @Override
     public String toString() {
         String display = new String();
