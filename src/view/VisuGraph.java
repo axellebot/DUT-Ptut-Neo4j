@@ -3,6 +3,7 @@ package view;
 
 import model.Data;
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
@@ -30,7 +31,7 @@ public class VisuGraph extends JPanel {
     }
 
     public void update(Data data) {
-        graph = new SingleGraph("Graph");
+        graph = new MultiGraph("Graph");
         for (model.Node n : data.getNodeList()) {
             graph.addNode(n.getName());
             graph.getNode(n.getName()).setAttribute("ui.label", n.getName());
