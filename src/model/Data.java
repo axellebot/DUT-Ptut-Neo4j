@@ -31,11 +31,14 @@ public class Data extends Observable {
     }
 
     public void test() {
+        nodeList.clear();
+        relationList.clear();
         nodeList.add(new Node("Paul"));
         nodeList.get(0).addLabel("Paul");
         nodeList.add(new Node("Harry Plotter"));
         nodeList.get(1).addLabel("Livre");
         relationList.add(new Relation("aime lire", nodeList.get(0), nodeList.get(1)));
+        notifier();
     }
 
     public ArrayList<Node> getNodeList() {
@@ -53,12 +56,39 @@ public class Data extends Observable {
         return null;
     }
 
+    public void addNode(Node node){
+        if(getNodeByName(node.getName()) == null)
+            nodeList.add(node);
+        else
+            System.out.println("Node already exists");
+    }
+
+    public void removeNode(String name){
+        for(Relation r : searchRelationOfNode(getNodeByName(name)))
+            relationList.remove(r);
+        nodeList.remove(getNodeByName(name));
+    }
+
+    public void addRelation(Relation rel){
+        if(getRelationByName(rel.getName()) == null)
+            relationList.add(rel);
+        else
+            System.out.println("Relation already exists");
+    }
+
     public ArrayList<Relation> getRelationList() {
         return relationList;
     }
 
     public void setRelationList(ArrayList<Relation> relationList) {
         this.relationList = relationList;
+    }
+
+    public Relation getRelationByName(String name){
+        for (Relation r : relationList) {
+            if (r.getName().equals(name)) return r;
+        }
+        return null;
     }
 
     /**
@@ -118,6 +148,10 @@ public class Data extends Observable {
      * @param data Data
      */
     public void changeData(Data data) {
+        this.nodeList = data.getNodeList();
+        this.relationList = data.getRelationList();
+    }
+    public void changeDataCurrent(Data data) {
         this.nodeList = data.getNodeList();
         this.relationList = data.getRelationList();
         this.notifier();

@@ -16,7 +16,7 @@ import java.awt.event.FocusListener;
 import java.io.File;
 
 public class Frame extends JFrame {
-    Data data;
+    Data data, dataCurrent;
     GraphPanel graphPanel;
     PromptPanel promptPanel;
     ToolsPanel toolsPanel;
@@ -27,13 +27,15 @@ public class Frame extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         data = new Data();
+        dataCurrent = new Data();
         data.test();
+        dataCurrent.changeDataCurrent(data);
         graphPanel = new GraphPanel();
         promptPanel = new PromptPanel();
         toolsPanel = new ToolsPanel();
 
         //ajout d'observateurs
-        data.addObservateur(graphPanel);
+        dataCurrent.addObservateur(graphPanel);
         System.out.println("nombre observateur: " + data.getNumberObervateur());
 
         //placement des panneaux
@@ -77,7 +79,7 @@ public class Frame extends JFrame {
 
         }
         public void update(){
-            graph.update(data);
+            graph.update(dataCurrent);
             System.out.println("update de data");
         }
     }
@@ -121,6 +123,7 @@ public class Frame extends JFrame {
         public JButton btnExport = new JButton("Exporter");
         public JButton btnImport = new JButton("Importer");
         public JButton btnRead = new JButton("Lire");
+        public JButton btnTest = new JButton("Test");
 
         public ToolsPanel() {
             this.setBorder(BorderFactory.createTitledBorder("Outils"));
@@ -144,7 +147,8 @@ public class Frame extends JFrame {
             this.add(btnExport);
             this.add(btnImport);
             this.add(btnRead);
-
+            this.add(btnTest);
+/*
             this.setLayout(new GridBagLayout());
             GridBagConstraints cont = new GridBagConstraints();
             cont.fill = GridBagConstraints.BOTH;
@@ -159,6 +163,7 @@ public class Frame extends JFrame {
             cont.gridx = 0;
             cont.gridy = 2;
             this.add(btnRead, cont);
+            */
             this.setPreferredSize(new Dimension(150, 100));
 
             btnExport.addActionListener(e -> {
@@ -188,6 +193,7 @@ public class Frame extends JFrame {
                     System.out.println("nombre Observateur avant importation: " + data.getNumberObervateur());
                     //System.out.println(data);
                     data.changeData(Json.extract(file.getAbsolutePath()));
+                    dataCurrent.changeDataCurrent(data);
                     System.out.println("nombre Observateur après importation: " + data.getNumberObervateur());
                 } else {
                     System.out.println("Open command cancelled by user.");
@@ -202,6 +208,9 @@ public class Frame extends JFrame {
                 } else {
                     System.out.println("Read command cancelled by user.");
                 }
+            });
+            btnTest.addActionListener(e->{
+                dataCurrent.test();
             });
         }
 
