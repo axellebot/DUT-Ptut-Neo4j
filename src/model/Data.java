@@ -81,7 +81,7 @@ public class Data extends Observable {
     /**
      * Recherche les Noeuds d'une relation
      *
-     * @param relation relation contenant les nodes
+     * @param relation Relation contenant les nodes
      * @return list des nodes contenu dans la relation
      */
     public ArrayList<Node> searchNodeFromRelation(Relation relation) {
@@ -112,17 +112,33 @@ public class Data extends Observable {
         return display;
     }
 
+    /**
+     * Change List of nodes and list of relations
+     *
+     * @param data Data
+     */
     public void changeData(Data data) {
         this.nodeList = data.getNodeList();
         this.relationList = data.getRelationList();
         this.notifier();
     }
 
+    /**
+     * Remove duplicate Nodes
+     */
     public void check() {
-        for (Node node1 : nodeList) {
-            for (Node node2 : nodeList) {
-                if (node1 != node2 && node1.getName() == node2.getName()) {
-                    nodeList.remove(node2);
+        boolean stop = false, find;
+        ArrayList<Node> nodeListTmp;
+        while (!stop) {
+            find = false;
+            nodeListTmp = new ArrayList<>(nodeList);
+            for (int i = 0; i < nodeListTmp.size() || !find; i++) {
+                for (int j = i + 1; j < nodeListTmp.size(); j++) {
+                    if (nodeListTmp.get(i).getName() == nodeListTmp.get(j).getName()) {
+                        nodeList.remove(nodeListTmp.get(j));
+                        find = true;
+                        break;
+                    }
                 }
             }
         }
