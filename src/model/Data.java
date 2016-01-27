@@ -56,12 +56,46 @@ public class Data extends Observable {
         return null;
     }
 
+    public void addNode(Node node){
+        if(getNodeByName(node.getName()) == null)
+            nodeList.add(node);
+        else
+            System.out.println("Node already exists");
+    }
+
+    public void removeNode(String name){
+        for(Relation r : searchRelationOfNode(getNodeByName(name)))
+            relationList.remove(r);
+        nodeList.remove(getNodeByName(name));
+    }
+
+    public void addRelation(Relation rel){
+        if(getRelationByName(rel.getName()) == null)
+            relationList.add(rel);
+        else
+            System.out.println("Relation already exists");
+    }
+
     public ArrayList<Relation> getRelationList() {
         return relationList;
     }
 
     public void setRelationList(ArrayList<Relation> relationList) {
         this.relationList = relationList;
+    }
+
+    public Relation getRelationByName(String name){
+        for (Relation r : relationList) {
+            if (r.getName().equals(name)) return r;
+        }
+        return null;
+    }
+
+    public void deleteAll(){
+        for (int i = 0; i < relationList.size(); i++)
+            relationList.remove(i);
+        for (int i = 0; i < nodeList.size(); i++)
+            nodeList.remove(i);
     }
 
     /**

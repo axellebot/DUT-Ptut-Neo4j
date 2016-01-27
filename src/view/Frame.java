@@ -9,6 +9,8 @@ import model.Utils;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
@@ -21,7 +23,7 @@ public class Frame extends JFrame {
 
     public Frame() {
         super("Neo4j");
-        setResizable(true);
+        setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         data = new Data();
@@ -35,9 +37,6 @@ public class Frame extends JFrame {
         //ajout d'observateurs
         dataCurrent.addObservateur(graphPanel);
         System.out.println("nombre observateur: " + data.getNumberObervateur());
-
-
-
 
         //placement des panneaux
         this.getContentPane().setLayout(new GridBagLayout());
@@ -70,8 +69,7 @@ public class Frame extends JFrame {
 
     public class GraphPanel extends JPanel implements control.Observateur{
 
-        public JLabel lblText = new JLabel("Ceci est un graph");
-        public VisuGraph graph = new VisuGraph(dataCurrent);
+        public VisuGraph graph = new VisuGraph(data);
 
         public GraphPanel(){
             this.setBorder(BorderFactory.createTitledBorder("Graph"));

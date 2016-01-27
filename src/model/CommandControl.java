@@ -25,11 +25,20 @@ public abstract class CommandControl {
                 if(parts[1].equals("*")) System.out.println(data);
                 else {
                     String[] subpart = parts[1].split("\\("); subpart = subpart[1].split("\\)");
-                    //System.out.println(data.getNodeByName(subpart[0]));
-                    for (int i = 0; i < parts.length; i++) {
-                        if (parts[i].toLowerCase().equals("return"))
-                            returnCommand(data.getNodeByName(parts[i + 1]));
-                    }
+                    //////
+                    if (data.getNodeByName(subpart[0]) != null)
+                        System.out.println(data.getNodeByName(subpart[0]));
+                    else if (data.getRelationByName(subpart[0]) != null)
+                        System.out.println(data.getRelationByName(subpart[0]));
+                    //////
+                    /*for (int i = 0; i < parts.length; i++) {
+                        if (parts[i].toLowerCase().equals("return")) {
+                            if (data.getNodeByName(parts[i + 1]) != null)
+                                returnCommand(data.getNodeByName(parts[i + 1]));
+                            else if (data.getRelationByName(parts[i + 1]) != null)
+                                returnCommand(data.getRelationByName(parts[i + 1]));
+                        }
+                    }*/
                 }
             }
             //CREATE Command
@@ -40,39 +49,52 @@ public abstract class CommandControl {
                     String[] firstPart = relaParts[0].split("\\("); firstPart = firstPart[1].split("\\)");
                     String[] lastPart = relaParts[2].split("\\("); lastPart = lastPart[1].split("\\)");
                     String[] relationPart = relaParts[1].split("\\["); relationPart = relationPart[1].split("\\]");
-                    data.getRelationList().add(new Relation(relationPart[0],data.getNodeByName(firstPart[0]),data.getNodeByName(lastPart[0])));
+                    if(data.getNodeByName(firstPart[0]) != null && data.getNodeByName(lastPart[0]) != null)
+                        data.getRelationList().add(new Relation(relationPart[0],data.getNodeByName(firstPart[0]),data.getNodeByName(lastPart[0])));
                 }
-                //split by ',' between nodes
-                String[] subparts = command.split(",");
-                //for each parts between the ','
-                for(String s : subparts) {
-                    //remove parentheses
-                    String[] subpart = s.split("\\("); subpart = subpart[1].split("\\)");
-                    //split by '{'
-                    String[] propSplit = subpart[0].split("\\{");
-                    ArrayList<String> propList = new ArrayList();
-                    if(propSplit.length > 1) {
-                        //remove '}'
-                        String[] properties = propSplit[1].split("\\}");
-                        //split by ';'
-                        String[] propParts = properties[0].split(";");
-                        Collections.addAll(propList, propParts);
+                else {
+                    //split by ',' between nodes
+                    String[] subparts = command.split(",");
+                    //for each parts between the ','
+                    for (String s : subparts) {
+                        //remove parentheses
+                        String[] subpart = s.split("\\(");
+                        subpart = subpart[1].split("\\)");
+                        //split by '{'
+                        String[] propSplit = subpart[0].split("\\{");
+                        ArrayList<String> propList = new ArrayList();
+                        if (propSplit.length > 1) {
+                            //remove '}'
+                            String[] properties = propSplit[1].split("\\}");
+                            //split by ';'
+                            String[] propParts = properties[0].split(";");
+                            Collections.addAll(propList, propParts);
+                        }
+                        //split by ':'
+                        String[] labels = propSplit[0].split(":");
+                        ArrayList<String> labelList = new ArrayList();
+                        for (int i = 1; i < labels.length; i++)
+                            labelList.add(labels[i]);
+                        data.addNode(new Node(labels[0], labelList, propList));
                     }
-                    //split by ':'
-                    String[] labels = propSplit[0].split(":");
-                    ArrayList<String> labelList = new ArrayList();
-                    for(int i = 1; i < labels.length; i++)
-                        labelList.add(labels[i]);
-                    data.getNodeList().add(new Node(labels[0], labelList, propList));
                 }
-                for(int i = 0; i < parts.length; i++){
-                    if(parts[i].toLowerCase().equals("return"))
-                        returnCommand(data.getNodeByName(parts[i+1]));
+                for (int i = 0; i < parts.length; i++) {
+                    if (parts[i].toLowerCase().equals("return")) {
+                        if (data.getNodeByName(parts[i + 1]) != null)
+                            returnCommand(data.getNodeByName(parts[i + 1]));
+                        else if (data.getRelationByName(parts[i + 1]) != null)
+                            returnCommand(data.getRelationByName(parts[i + 1]));
+                    }
                 }
             }
             //DELETE Command
             else if(parts[0].toLowerCase().equals("delete")){
-                data.getNodeList().remove(data.getNodeByName(parts[1]));
+                if (data.getNodeByName(parts[1]) != null)
+                    data.removeNode(parts[1]);
+                else if (data.getRelationByName(parts[1]) != null)
+                    data.getRelationList().remove(data.getRelationByName(parts[1]));
+                else if(parts[1].equals("*"))
+                    data.deleteAll();
             }
         }
         else System.out.println("Commande invalide : erreur de parenthesage");
@@ -81,6 +103,10 @@ public abstract class CommandControl {
     public static void returnCommand(Node node){
         //afficher la node sur le graphe lAAAAAAAAAAAAAAAAAAAAA
         System.out.println(node);
+    }
+
+    public static void returnCommand(Relation rel){
+        System.out.println(rel);
     }
 
     public static boolean validParenthesage(String s) {
