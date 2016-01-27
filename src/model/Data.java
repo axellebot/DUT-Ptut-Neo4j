@@ -57,21 +57,21 @@ public class Data extends Observable {
     }
 
     public void addNode(Node node){
-        if(getNodeByName(node.getName()) == null)
-            nodeList.add(node);
+        if(this.getNodeByName(node.getName()) == null)
+            this.nodeList.add(node);
         else
             System.out.println("Node already exists");
     }
 
     public void removeNode(String name){
         for(Relation r : searchRelationOfNode(getNodeByName(name)))
-            relationList.remove(r);
-        nodeList.remove(getNodeByName(name));
+            this.relationList.remove(r);
+        this.nodeList.remove(getNodeByName(name));
     }
 
     public void addRelation(Relation rel){
-        if(getRelationByName(rel.getName()) == null)
-            relationList.add(rel);
+        if(this.getRelationByName(rel.getName()) == null)
+            this.relationList.add(rel);
         else
             System.out.println("Relation already exists");
     }
