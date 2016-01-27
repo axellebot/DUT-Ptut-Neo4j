@@ -93,6 +93,8 @@ public abstract class CommandControl {
                     data.removeNode(parts[1]);
                 else if (data.getRelationByName(parts[1]) != null)
                     data.getRelationList().remove(data.getRelationByName(parts[1]));
+                else if(parts[1].equals("*"))
+                    data.deleteAll();
             }
         }
         else System.out.println("Commande invalide : erreur de parenthesage");

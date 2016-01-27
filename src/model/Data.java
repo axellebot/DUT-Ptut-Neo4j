@@ -91,6 +91,13 @@ public class Data extends Observable {
         return null;
     }
 
+    public void deleteAll(){
+        for (int i = 0; i < relationList.size(); i++)
+            relationList.remove(i);
+        for (int i = 0; i < nodeList.size(); i++)
+            nodeList.remove(i);
+    }
+
     /**
      * Recherche les relations d'un noeud
      *
