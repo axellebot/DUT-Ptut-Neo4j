@@ -234,9 +234,9 @@ public class Frame extends JFrame {
                 dataCurrent.changeDataCurrent(data);
             });
         }
+        
 
     }
-
     public class CreatePanel extends JPanel implements control.Observateur {
 
         public JTextField tCreateNode = new JTextField(10);
@@ -297,5 +297,4 @@ public class Frame extends JFrame {
         }
 
     }
-
 }
