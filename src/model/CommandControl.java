@@ -18,19 +18,29 @@ public abstract class CommandControl {
             //split by ' ' between CRUD and node or relation
             //like "CREATE (Paul:Person),(Sarah:Person{age:'25',ville:'Lyon'})"
             String[] parts = command.split(" ");
+            //MATCH Command
             if(parts[0].toLowerCase().equals("match")){
-                //si on MATCH ALL (*)
+                //if MATCH ALL (*)
                 if(parts[1].equals("*")) System.out.println(data);
                 else {
                     String[] subpart = parts[1].split("\\("); subpart = subpart[1].split("\\)");
-                    System.out.println(data.getNodeByName(subpart[0]));
+                    //System.out.println(data.getNodeByName(subpart[0]));
                     for (int i = 0; i < parts.length; i++) {
                         if (parts[i].toLowerCase().equals("return"))
                             returnCommand(data.getNodeByName(parts[i + 1]));
                     }
                 }
             }
+            //CREATE Command
             else if(parts[0].toLowerCase().equals("create")){
+                //split by '-'
+                String[] relaParts = command.split("-");
+                if(relaParts.length == 3){;
+                    String[] firstPart = relaParts[0].split("\\("); firstPart = firstPart[1].split("\\)");
+                    String[] lastPart = relaParts[2].split("\\("); lastPart = lastPart[1].split("\\)");
+                    String[] relationPart = relaParts[1].split("\\["); relationPart = relationPart[1].split("\\]");
+                    data.getRelationList().add(new Relation(relationPart[0],data.getNodeByName(firstPart[0]),data.getNodeByName(lastPart[0])));
+                }
                 //split by ',' between nodes
                 String[] subparts = command.split(",");
                 //for each parts between the ','
@@ -59,6 +69,7 @@ public abstract class CommandControl {
                         returnCommand(data.getNodeByName(parts[i+1]));
                 }
             }
+            //DELETE Command
             else if(parts[0].toLowerCase().equals("delete")){
                 data.getNodeList().remove(data.getNodeByName(parts[1]));
             }
@@ -68,6 +79,7 @@ public abstract class CommandControl {
 
     public static void returnCommand(Node node){
         //afficher la node sur le graphe lAAAAAAAAAAAAAAAAAAAAA
+        System.out.println(node);
     }
 
     public static boolean validParenthesage(String s) {
