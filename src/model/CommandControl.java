@@ -5,6 +5,7 @@ package model;/*
  */
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -35,7 +36,7 @@ public abstract class CommandControl {
             else if(parts[0].toLowerCase().equals("create")){
                 //split by '-'
                 String[] relaParts = command.split("-");
-                if(relaParts.length == 3){;
+                if(relaParts.length == 3){
                     String[] firstPart = relaParts[0].split("\\("); firstPart = firstPart[1].split("\\)");
                     String[] lastPart = relaParts[2].split("\\("); lastPart = lastPart[1].split("\\)");
                     String[] relationPart = relaParts[1].split("\\["); relationPart = relationPart[1].split("\\]");
@@ -55,7 +56,7 @@ public abstract class CommandControl {
                         String[] properties = propSplit[1].split("\\}");
                         //split by ';'
                         String[] propParts = properties[0].split(";");
-                        for(String p : propParts) propList.add(p);
+                        Collections.addAll(propList, propParts);
                     }
                     //split by ':'
                     String[] labels = propSplit[0].split(":");
