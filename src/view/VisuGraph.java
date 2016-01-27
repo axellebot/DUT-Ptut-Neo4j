@@ -48,8 +48,6 @@ public class VisuGraph extends JPanel {
                         "edge{\n" +
                         "text-mode: normal; text-alignment: along; text-color: blue; text-size: 18px;\n" +
                         "}\n";
-
-        System.out.println(styleNode);
         graph.addAttribute("ui.stylesheet", styleNode);
         graph.addAttribute("ui.quality");
         graph.addAttribute("ui.antialias");

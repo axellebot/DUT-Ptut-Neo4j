@@ -80,6 +80,10 @@ public class Frame extends JFrame {
             this.add(graph);
 
         }
+
+        /**
+         * update data with Current Data
+         */
         public void update(){
             graph.update(dataCurrent);
             System.out.println("update de data");
@@ -125,7 +129,9 @@ public class Frame extends JFrame {
         public JButton btnExport = new JButton("Exporter");
         public JButton btnImport = new JButton("Importer");
         public JButton btnRead = new JButton("Lire");
-        public JButton btnTest = new JButton("Test");
+        public JButton btnTest = new JButton("Voisin");
+        public JTextField tVoisin = new JTextField(10);
+        public JButton btnVue = new JButton("Vue Globale");
 
         public ToolsPanel() {
             this.setBorder(BorderFactory.createTitledBorder("Outils"));
@@ -149,7 +155,9 @@ public class Frame extends JFrame {
             this.add(btnExport);
             this.add(btnImport);
             this.add(btnRead);
+            this.add(tVoisin);
             this.add(btnTest);
+            this.add(btnVue);
 /*
             this.setLayout(new GridBagLayout());
             GridBagConstraints cont = new GridBagConstraints();
@@ -212,7 +220,10 @@ public class Frame extends JFrame {
                 }
             });
             btnTest.addActionListener(e->{
-                dataCurrent.test();
+                dataCurrent.changeDataCurrent(data.getVoisin(tVoisin.getText()));
+            });
+            btnVue.addActionListener(e->{
+                dataCurrent.changeDataCurrent(data);
             });
         }
 

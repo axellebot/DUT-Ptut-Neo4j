@@ -150,4 +150,46 @@ public class Data extends Observable {
             }
         }
     }
+    public Data getVoisin(String id){
+        System.out.println("recherche des voisins");
+        Data retour = new Data();
+        if(nodeExist(id)){
+            System.out.println("la node existe");
+            Node nodeChoisi = this.getNodeByName(id);
+            retour.nodeList.add(nodeChoisi);
+            retour.relationList = relationByNode(nodeChoisi);
+            for(Relation r: relationList){
+                Node nodeVoisine = r.getNode1().equals(nodeChoisi)? r.getNode2():r.getNode1();
+                if(!retour.nodeExist(nodeVoisine.getName())) {
+                    retour.nodeList.add(nodeVoisine);
+                }
+            }
+        }
+        System.out.println(retour);
+        return retour;
+    }
+
+    /**
+     *
+     * @param id String
+     * @return boolean
+     */
+    public boolean nodeExist(String id){
+        for(Node n : this.nodeList){
+            if(n.getName().equals(id)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<Relation> relationByNode(Node n){
+        ArrayList<Relation> retour = new ArrayList();
+        for(Relation r: relationList){
+            if(r.getNode1().equals(n) || r.getNode2().equals(n)){
+                retour.add(r);
+            }
+        }
+        return retour;
+    }
 }
