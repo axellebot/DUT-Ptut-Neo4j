@@ -116,6 +116,7 @@ public class Frame extends JFrame {
             btnGenerate.addActionListener(e -> {
                 //Call parser
                 CommandControl.parser(data, txtPrompt.getText());
+                dataCurrent.changeDataCurrent(data);
             });
         }
 
