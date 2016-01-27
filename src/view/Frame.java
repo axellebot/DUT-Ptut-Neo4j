@@ -269,12 +269,14 @@ public class Frame extends JFrame {
             this.add(btCreateRelation);
             this.setPreferredSize(new Dimension(200, 200));
             btCreateNode.addActionListener(e -> {
-                data.addNode(new Node(tCreateNode.getText()));
-                dataCurrent.changeDataCurrent(data);
+                if (!"".equals(tCreateNode.getText())) {
+                    data.addNode(new Node(tCreateNode.getText()));
+                    dataCurrent.changeDataCurrent(data);
+                }
                 tCreateNode.setText("");
             });
             btCreateRelation.addActionListener(e -> {
-                if (!modelNode1.getSelectedItem().equals(modelNode2.getSelectedItem())) {
+                if (!"".equals(tCreateNode.getText()) && !modelNode1.getSelectedItem().equals(modelNode2.getSelectedItem())) {
                     data.addRelation(new Relation(tCreateRelation.getText(), (Node) modelNode1.getSelectedItem(), (Node) modelNode2.getSelectedItem()));
                     dataCurrent.changeDataCurrent(data);
                 }
