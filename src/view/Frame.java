@@ -82,7 +82,7 @@ public class Frame extends JFrame {
     }
 
     public class PromptPanel extends JPanel {
-        public JTextField txtPrompt = new JTextField(100);
+        public JTextArea txtPrompt = new JTextArea(400, 200);
         public JButton btnGenerate = new JButton("Generate");
 
 
@@ -96,10 +96,12 @@ public class Frame extends JFrame {
             cont.fill = GridBagConstraints.BOTH;
             cont.gridx = 0;
             cont.gridy = 0;
+            cont.weightx = 6;
             this.add(txtPrompt, cont);
 
             cont.gridx = 1;
             cont.gridy = 0;
+            cont.weightx = 1;
             this.add(btnGenerate, cont);
             this.setPreferredSize(new Dimension(1000, 100));
 
