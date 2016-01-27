@@ -158,7 +158,7 @@ public class Data extends Observable {
             Node nodeChoisi = this.getNodeByName(id);
             retour.nodeList.add(nodeChoisi);
             retour.relationList = relationByNode(nodeChoisi);
-            for(Relation r: relationList){
+            for(Relation r: retour.relationList){
                 Node nodeVoisine = r.getNode1().equals(nodeChoisi)? r.getNode2():r.getNode1();
                 if(!retour.nodeExist(nodeVoisine.getName())) {
                     retour.nodeList.add(nodeVoisine);
