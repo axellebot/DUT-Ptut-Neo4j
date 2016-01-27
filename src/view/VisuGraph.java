@@ -2,9 +2,7 @@ package view;
 
 
 import model.Data;
-import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
-import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
@@ -40,6 +38,7 @@ public class VisuGraph extends JPanel {
         for (model.Relation r : data.getRelationList()) {
             graph.addEdge(Integer.toString(id), r.getNode1().getName(), r.getNode2().getName());
             graph.getEdge(Integer.toString(id)).setAttribute("ui.label", r.getName());
+            id++;
         }
         final String styleNode =
                 "node{\n" +
