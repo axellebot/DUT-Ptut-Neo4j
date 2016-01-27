@@ -19,8 +19,10 @@ public class VisuGraph extends JPanel {
     Graph graph;
     Viewer viewer;
     View view;
+    int id;
 
     public VisuGraph(Data data) {
+        id = 1;
         setVisible(true);
         setPreferredSize(new Dimension(950, 550));
         this.setLayout(new BorderLayout());
@@ -36,8 +38,8 @@ public class VisuGraph extends JPanel {
             graph.getNode(n.getName()).setAttribute("ui.label", n.getName());
         }
         for (model.Relation r : data.getRelationList()) {
-            graph.addEdge(r.getName(), r.getNode1().getName(), r.getNode2().getName());
-            graph.getEdge(r.getName()).setAttribute("ui.label", r.getName());
+            graph.addEdge(Integer.toString(id), r.getNode1().getName(), r.getNode2().getName());
+            graph.getEdge(Integer.toString(id)).setAttribute("ui.label", r.getName());
         }
         final String styleNode =
                 "node{\n" +
