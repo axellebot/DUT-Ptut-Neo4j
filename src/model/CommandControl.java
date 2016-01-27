@@ -50,7 +50,7 @@ public abstract class CommandControl {
                     String[] lastPart = relaParts[2].split("\\("); lastPart = lastPart[1].split("\\)");
                     String[] relationPart = relaParts[1].split("\\["); relationPart = relationPart[1].split("\\]");
                     if(data.getNodeByName(firstPart[0]) != null && data.getNodeByName(lastPart[0]) != null)
-                        data.getRelationList().add(new Relation(relationPart[0],data.getNodeByName(firstPart[0]),data.getNodeByName(lastPart[0])));
+                        data.addRelation(new Relation(relationPart[0],data.getNodeByName(firstPart[0]),data.getNodeByName(lastPart[0])));
                 }
                 else {
                     //split by ',' between nodes
@@ -87,12 +87,33 @@ public abstract class CommandControl {
                     }
                 }
             }
+            //SET Command
+            else if(parts[0].toLowerCase().equals("set")) {
+                String[] labels = parts[2].split(":");
+                String[] nodeName = command.split("\\(");
+                nodeName = nodeName[1].split("\\)");
+                //SET (n) :Label1:Label2
+                if(labels.length > 1){
+                    for(int i = 1; i < labels.length; i++)
+                        data.getNodeByName(nodeName[0]).addLabel(labels[i]);
+                }
+                //SET (n) prop1={prop}
+                else{
+                    String[] prop = parts[2].split("=");
+                    String[] propLabel = command.split("\\{");
+                    propLabel = propLabel[1].split("\\}");
+                    data.getNodeByName(nodeName[0]).setPropertie(prop[0],propLabel[0]);
+                }
+            }
             //DELETE Command
             else if(parts[0].toLowerCase().equals("delete")){
-                if (data.getNodeByName(parts[1]) != null)
-                    data.removeNode(parts[1]);
-                else if (data.getRelationByName(parts[1]) != null)
-                    data.getRelationList().remove(data.getRelationByName(parts[1]));
+                //remove parentheses
+                String[] subpart = command.split("\\(");
+                subpart = subpart[1].split("\\)");
+                if (data.getNodeByName(subpart[0]) != null)
+                    data.removeNode(subpart[0]);
+                else if (data.getRelationByName(subpart[0]) != null)
+                    data.getRelationList().remove(data.getRelationByName(subpart[0]));
                 else if(parts[1].equals("*"))
                     data.deleteAll();
             }
