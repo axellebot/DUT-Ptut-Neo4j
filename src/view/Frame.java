@@ -55,6 +55,11 @@ public class Frame extends JFrame {
         this.getContentPane().add(promptPanel, cont);
 
         this.pack();
+
+    }
+
+    public void loop(){
+            graphPanel.graph.loop();
     }
 
     public Data getData() {
@@ -131,6 +136,7 @@ public class Frame extends JFrame {
         public JTextField txtNode = new JTextField("", 10);
         public JTextField txtRelation = new JTextField("", 10);
         public JButton btnVue = new JButton("Vue Globale");
+        public JToggleButton btnShowValue = new JToggleButton("Voir les labels");
 
         public ToolsPanel() {
             this.setBorder(BorderFactory.createTitledBorder("Outils"));
@@ -158,6 +164,7 @@ public class Frame extends JFrame {
             this.add(txtRelation);
             this.add(btnTest);
             this.add(btnVue);
+            this.add(btnShowValue);
             /*
              this.setLayout(new GridBagLayout());
              GridBagConstraints cont = new GridBagConstraints();
@@ -237,15 +244,23 @@ public class Frame extends JFrame {
             btnVue.addActionListener(e -> {
                 dataCurrent.changeDataCurrent(data);
             });
+            btnShowValue.addActionListener(e ->{
+                System.out.println("show labels");
+                graphPanel.graph.setShowLabels(btnShowValue.isSelected());
+                System.out.println("state show label: " + graphPanel.graph.isShowLabels());
+                dataCurrent.notifier();
+            });
         }
         
 
     }
     public class CreatePanel extends JPanel implements control.Observateur {
 
+        public JLabel lCreateNode = new JLabel("Créer une node:");
         public JTextField tCreateNode = new JTextField(10);
         public JButton btCreateNode = new JButton("creer une node");
 
+        public JLabel lCreateRelation = new JLabel("Créer une relation:");
         public JTextField tCreateRelation = new JTextField(10);
         public DefaultComboBoxModel<Node> modelNode1, modelNode2;
         public JComboBox<Node> cbNode1;
@@ -265,8 +280,10 @@ public class Frame extends JFrame {
             cbNode2.setPreferredSize(new Dimension(150, 20));
 
             update();
+            this.add(lCreateNode);
             this.add(tCreateNode);
             this.add(btCreateNode);
+            this.add(lCreateRelation);
             this.add(tCreateRelation);
             this.add(cbNode1);
             this.add(cbNode2);

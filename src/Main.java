@@ -43,6 +43,7 @@ public class Main {
 
         _fenetre.setVisible(true);
 
+        _fenetre.loop();
 
         //CommandControl
         Scanner sc = new Scanner(System.in);
@@ -55,4 +56,5 @@ public class Main {
         } while (!str.equals(exitCommand));
         System.out.println("A+");
     }
+
 }
