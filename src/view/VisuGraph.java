@@ -4,16 +4,12 @@ package view;
 import model.Data;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.MultiGraph;
-import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
 
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by Milihhard on 26/01/2016.
- */
 public class VisuGraph extends JPanel {
     Graph graph;
     Viewer viewer;
@@ -27,7 +23,6 @@ public class VisuGraph extends JPanel {
         this.setLayout(new BorderLayout());
 
         update(data);
-        //graph.display();
     }
 
     public void update(Data data) {
