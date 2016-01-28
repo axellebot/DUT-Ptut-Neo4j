@@ -276,7 +276,7 @@ public class Frame extends JFrame {
                 tCreateNode.setText("");
             });
             btCreateRelation.addActionListener(e -> {
-                if (!"".equals(tCreateNode.getText()) && !modelNode1.getSelectedItem().equals(modelNode2.getSelectedItem())) {
+                if (!"".equals(tCreateRelation.getText()) && !modelNode1.getSelectedItem().equals(modelNode2.getSelectedItem())) {
                     data.addRelation(new Relation(tCreateRelation.getText(), (Node) modelNode1.getSelectedItem(), (Node) modelNode2.getSelectedItem()));
                     dataCurrent.changeDataCurrent(data);
                 }
