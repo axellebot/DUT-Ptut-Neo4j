@@ -100,10 +100,20 @@ public abstract class CommandControl {
                 //SET (n) prop1={prop}
                 else{
                     String[] prop = parts[2].split("=");
-                    String[] propLabel = command.split("\\{");
-                    propLabel = propLabel[1].split("\\}");
-                    data.getNodeByName(nodeName[0]).setPropertie(prop[0],propLabel[0]);
+                    data.getNodeByName(nodeName[0]).setPropertie(prop[0],prop[1]);
                 }
+            }
+            //REMOVE
+            else if (parts[0].toLowerCase().equals("remove")){
+                String[] labels = parts[2].split(":");
+                String[] nodeName = command.split("\\(");
+                nodeName = nodeName[1].split("\\)");
+                if(labels.length > 1){
+                    for(int i = 1; i < labels.length; i++)
+                        data.getNodeByName(nodeName[0]).rmLabel(labels[i]);
+                }
+                else
+                    data.getNodeByName(nodeName[0]).rmPropertie(parts[2]);
             }
             //DELETE Command
             else if(parts[0].toLowerCase().equals("delete")){
