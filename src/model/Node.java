@@ -169,9 +169,36 @@ public class Node {
      *
      * @param label nom du label
      */
-
     public void addLabel(String label) {
         this.labels.add(label);
+    }
+
+    /**
+     * Supprime un label d'un noeud
+     *
+     * @param label nom du label
+     */
+    public void rmLabel(String label){
+        for (int i = 0; i < labels.size(); i++){
+            if(labels.get(i).equals(label))
+                labels.remove(i);
+        }
+    }
+
+    /**
+     * Supprime une propriété d'un noeud
+     *
+     * @param prop nom de la propriété
+     */
+    public boolean rmPropertie(String prop){
+        for(String s : properties){
+            String[] propPart = s.split(":");
+            if(propPart[0].equals(prop)){
+                this.properties.remove(s);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
