@@ -1,21 +1,11 @@
 package view;
 
-import control.Observable;
-import model.CommandControl;
-import model.Data;
-import model.Json;
-import model.Utils;
+import model.*;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.io.File;
-import model.Node;
-import model.Relation;
 
 public class Frame extends JFrame {
 
@@ -137,8 +127,9 @@ public class Frame extends JFrame {
         public JButton btnExport = new JButton("Exporter");
         public JButton btnImport = new JButton("Importer");
         public JButton btnRead = new JButton("Lire");
-        public JButton btnTest = new JButton("Voisin");
-        public JTextField tVoisin = new JTextField(10);
+        public JButton btnTest = new JButton("Tester");
+        public JTextField txtNode = new JTextField("", 10);
+        public JTextField txtRelation = new JTextField("", 10);
         public JButton btnVue = new JButton("Vue Globale");
 
         public ToolsPanel() {
@@ -163,7 +154,8 @@ public class Frame extends JFrame {
             this.add(btnExport);
             this.add(btnImport);
             this.add(btnRead);
-            this.add(tVoisin);
+            this.add(txtNode);
+            this.add(txtRelation);
             this.add(btnTest);
             this.add(btnVue);
             /*
@@ -173,6 +165,13 @@ public class Frame extends JFrame {
              cont.gridx = 0;
              cont.gridy = 0;
              this.add(btnExport, cont);
+            /*
+            this.setLayout(new GridBagLayout());
+            GridBagConstraints cont = new GridBagConstraints();
+            cont.fill = GridBagConstraints.BOTH;
+            cont.gridx = 0;
+            cont.gridy = 0;
+            this.add(btnExport, cont);
 
              cont.gridx = 0;
              cont.gridy = 1;
@@ -198,7 +197,6 @@ public class Frame extends JFrame {
                     } else {
                         Json.export(data, file.getAbsolutePath() + ".json");
                     }
-
                 } else {
                     System.out.println("Save command cancelled by user.");
                 }
@@ -228,7 +226,13 @@ public class Frame extends JFrame {
                 }
             });
             btnTest.addActionListener(e -> {
-                dataCurrent.changeDataCurrent(data.getVoisin(tVoisin.getText()));
+                if (!"".equals(txtNode.getText())) {
+                    if (!"".equals(txtRelation.getText())) {
+                        dataCurrent.changeDataCurrent(data.getVoisinWithRelationName(txtNode.getText(), txtRelation.getText()));
+                    } else {
+                        dataCurrent.changeDataCurrent(data.getVoisin(txtNode.getText()));
+                    }
+                }
             });
             btnVue.addActionListener(e -> {
                 dataCurrent.changeDataCurrent(data);

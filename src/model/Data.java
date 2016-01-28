@@ -56,22 +56,22 @@ public class Data extends Observable {
         return null;
     }
 
-    public void addNode(Node node){
-        if(this.getNodeByName(node.getName()) == null)
-            this.nodeList.add(node);
+    public void addNode(Node node) {
+        if (getNodeByName(node.getName()) == null)
+            nodeList.add(node);
         else
             System.out.println("Node already exists");
     }
 
-    public void removeNode(String name){
-        for(Relation r : searchRelationOfNode(getNodeByName(name)))
-            this.relationList.remove(r);
-        this.nodeList.remove(getNodeByName(name));
+    public void removeNode(String name) {
+        for (Relation r : searchRelationOfNode(getNodeByName(name)))
+            relationList.remove(r);
+        nodeList.remove(getNodeByName(name));
     }
 
-    public void addRelation(Relation rel){
-        if(this.getRelationByName(rel.getName()) == null)
-            this.relationList.add(rel);
+    public void addRelation(Relation rel) {
+        if (getRelationByName(rel.getName()) == null)
+            relationList.add(rel);
         else
             System.out.println("Relation already exists");
     }
@@ -84,14 +84,14 @@ public class Data extends Observable {
         this.relationList = relationList;
     }
 
-    public Relation getRelationByName(String name){
+    public Relation getRelationByName(String name) {
         for (Relation r : relationList) {
             if (r.getName().equals(name)) return r;
         }
         return null;
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         for (int i = 0; i < relationList.size(); i++)
             relationList.remove(i);
         for (int i = 0; i < nodeList.size(); i++)
@@ -158,6 +158,7 @@ public class Data extends Observable {
         this.nodeList = data.getNodeList();
         this.relationList = data.getRelationList();
     }
+
     public void changeDataCurrent(Data data) {
         this.nodeList = data.getNodeList();
         this.relationList = data.getRelationList();
@@ -184,43 +185,100 @@ public class Data extends Observable {
             }
         }
     }
-    public Data getVoisin(String id){
-        System.out.println("recherche des voisins");
-        Data retour = new Data();
-        if(nodeExist(id)){
+
+    public Data getVoisin(String nodeName) {
+        if (nodeExist(nodeName)) {
             System.out.println("la node existe");
-            Node nodeChoisi = this.getNodeByName(id);
+            System.out.println("recherche des voisins");
+            Data retour = new Data();
+
+            Node nodeChoisi = this.getNodeByName(nodeName);
             retour.nodeList.add(nodeChoisi);
-            retour.relationList = relationByNode(nodeChoisi);
-            for(Relation r: retour.relationList){
-                Node nodeVoisine = r.getNode1().equals(nodeChoisi)? r.getNode2():r.getNode1();
-                if(!retour.nodeExist(nodeVoisine.getName())) {
+            retour.relationList = findAllRelationOfNode(nodeChoisi);
+            for (Relation r : retour.relationList) {
+                Node nodeVoisine = r.getNode1().equals(nodeChoisi) ? r.getNode2() : r.getNode1();
+                if (!retour.nodeExist(nodeVoisine.getName())) {
                     retour.nodeList.add(nodeVoisine);
                 }
             }
+            return retour;
         }
-        System.out.println(retour);
-        return retour;
+        return null;
     }
 
     /**
-     *
+     * @param nodeName     String
+     * @param relationName String
+     * @return Data
+     */
+    public Data getVoisinWithRelationName(String nodeName, String relationName) {
+        if (nodeExist(nodeName) && relationExist(relationName)) {
+            System.out.println("le noeud et au moins une relation existe relation existe");
+            System.out.println("recherche des relations");
+            Data retour = new Data();
+
+            Node nodeChoisi = this.getNodeByName(nodeName);
+            retour.nodeList.add(nodeChoisi);
+            retour.relationList = findRelationOfNodeWithRelationName(nodeChoisi, relationName);
+            for (Relation r : retour.relationList) {
+                if (relationName.equals(r.getName())) {
+                    Node nodeVoisine = r.getNode1().equals(nodeChoisi) ? r.getNode2() : r.getNode1();
+                    if (!retour.nodeExist(nodeVoisine.getName())) {
+                        retour.nodeList.add(nodeVoisine);
+                    }
+                }
+            }
+            return retour;
+        }
+        return null;
+    }
+
+    /**
      * @param id String
      * @return boolean
      */
-    public boolean nodeExist(String id){
-        for(Node n : this.nodeList){
-            if(n.getName().equals(id)){
+    public boolean nodeExist(String id) {
+        for (Node n : this.nodeList) {
+            if (n.getName().equals(id)) {
                 return true;
             }
         }
         return false;
     }
 
-    public ArrayList<Relation> relationByNode(Node n){
+    /**
+     * @param id String
+     * @return boolean
+     */
+    public boolean relationExist(String relationName) {
+        for (Relation r : this.relationList) {
+            if (r.getName().equals(relationName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<Relation> findAllRelationOfNode(Node n) {
         ArrayList<Relation> retour = new ArrayList();
-        for(Relation r: relationList){
-            if(r.getNode1().equals(n) || r.getNode2().equals(n)){
+        for (Relation r : relationList) {
+            if (r.getNode1().equals(n) || r.getNode2().equals(n)) {
+                retour.add(r);
+            }
+        }
+        return retour;
+    }
+
+    /**
+     * Trouver tous les noeuds
+     *
+     * @param relationName
+     * @return
+     */
+    public ArrayList<Relation> findRelationOfNodeWithRelationName(Node n, String relationName) {
+        ArrayList<Relation> retour = new ArrayList();
+        for (Relation r : relationList) {
+            if ((r.getNode1().equals(n) || r.getNode2().equals(n)) && r.getName().equals(relationName)) {
                 retour.add(r);
             }
         }
