@@ -14,7 +14,8 @@ public class Frame extends JFrame {
     PromptPanel promptPanel;
     ToolsPanel toolsPanel;
     CreatePanel createpanel;
-
+    InstructPanel instructPanel;
+    JDialog dialInstruct;
     public Frame() {
         super("Neo4j");
         setResizable(false);
@@ -28,6 +29,16 @@ public class Frame extends JFrame {
         promptPanel = new PromptPanel();
         toolsPanel = new ToolsPanel();
         createpanel = new CreatePanel();
+        instructPanel = new InstructPanel();
+
+        dialInstruct = new JDialog(this);
+        dialInstruct.add(instructPanel);
+        dialInstruct.setSize(500, 400);
+        dialInstruct.setLocationRelativeTo(this);
+        JButton btnInstruct = new JButton("Manual");
+        btnInstruct.addActionListener(e -> {
+            dialInstruct.setVisible(true);
+        });
 
         //ajout d'observateurs
         dataCurrent.addObservateur(graphPanel);
@@ -46,6 +57,12 @@ public class Frame extends JFrame {
         cont.gridy = 1;
         cont.gridheight = 1;
         this.getContentPane().add(createpanel, cont);
+
+        cont.gridx = 0;
+        cont.gridy = 2;
+        cont.gridheight = 1;
+        this.getContentPane().add(add(btnInstruct), cont);
+
         cont.gridx = 1;
         cont.gridy = 0;
         cont.gridheight = 2;
@@ -80,7 +97,6 @@ public class Frame extends JFrame {
             this.setLayout(new GridBagLayout());
             this.setPreferredSize(new Dimension(1000, 600));
             this.add(graph);
-
         }
 
         /**
@@ -164,6 +180,8 @@ public class Frame extends JFrame {
             this.add(txtRelation);
             this.add(btnTest);
             this.add(btnVue);
+
+            /* this.setLayout(new GridBagLayout());
             this.add(btnShowValue);
             /*
              this.setLayout(new GridBagLayout());
@@ -172,7 +190,7 @@ public class Frame extends JFrame {
              cont.gridx = 0;
              cont.gridy = 0;
              this.add(btnExport, cont);
-            /*
+
             this.setLayout(new GridBagLayout());
             GridBagConstraints cont = new GridBagConstraints();
             cont.fill = GridBagConstraints.BOTH;
@@ -251,9 +269,126 @@ public class Frame extends JFrame {
                 dataCurrent.notifier();
             });
         }
-        
+
 
     }
+
+    public class InstructPanel extends JPanel {
+        public JLabel Create = new JLabel("<html><br>Create : </html>");
+        public JLabel CreateWrite1 = new JLabel("<html>create (node_name) </html>");
+        public JLabel CreateWrite2 = new JLabel("<html>OR</html>");
+        public JLabel CreateWrite3 = new JLabel("<html>(node_name:label{prop:\"proprietie_name}\"</html>");
+        public JLabel CreateExtras1 = new JLabel("<html>Can create multiple node by separating<br> them with a dot like: </html>");
+        public JLabel CreateExtras2 = new JLabel("<html>create (node_name1),(node_name2)\")</html>");
+
+        public JLabel Delete = new JLabel("<html><br>Delete :</html> ");
+        public JLabel DeleteWrite = new JLabel("<html>Delete (node_name)</html>");
+
+        public JLabel Update = new JLabel("<html><br>Update : </html>");
+        public JLabel UpdateWrite = new JLabel("<html>Set (node_name) prop=propertie_name </html>");
+
+        public JLabel Return = new JLabel("<html><br>Set : </html>");
+        public JLabel ReturnWrite = new JLabel("<html>Match (node_name)</html>");
+        public JLabel ReturnExtras1 = new JLabel("<html>To return every nodes and relations: </html>");
+        public JLabel ReturnExtras2 = new JLabel("<html>Match *</html>");
+
+
+        public InstructPanel() {
+            this.setLayout(new GridBagLayout());
+            GridBagConstraints cont = new GridBagConstraints();
+            cont.fill = GridBagConstraints.BOTH;
+            Font ft = new Font("Calibri", Font.PLAIN, 16);
+            Font ft2 = new Font("Britannic Bold", Font.PLAIN, 18);
+
+
+            Create.setFont(ft2);
+
+            cont.gridx = 0;
+            cont.gridy = 0;
+            this.add(Create, cont);
+
+            CreateWrite1.setFont(ft);
+            CreateWrite1.setForeground(new Color(0, 0, 128));
+
+            CreateWrite3.setFont(ft);
+            CreateWrite3.setForeground(new Color(0, 0, 128));
+
+
+            cont.gridx = 0;
+            cont.gridy = 1;
+            this.add(CreateWrite1, cont);
+            cont.gridx = 0;
+            cont.gridy = 2;
+            this.add(CreateWrite2, cont);
+            cont.gridx = 0;
+            cont.gridy = 3;
+            this.add(CreateWrite3, cont);
+
+            CreateExtras2.setFont(ft);
+            CreateExtras2.setForeground(new Color(0, 0, 128));
+
+            cont.gridx = 0;
+            cont.gridy = 4;
+            this.add(CreateExtras1, cont);
+            cont.gridx = 0;
+            cont.gridy = 5;
+            this.add(CreateExtras2, cont);
+
+            Delete.setFont(ft2);
+
+            cont.gridx = 0;
+            cont.gridy = 6;
+            this.add(Delete, cont);
+
+            DeleteWrite.setFont(ft);
+            DeleteWrite.setForeground(new Color(0, 0, 128));
+
+            cont.gridx = 0;
+            cont.gridy = 7;
+            this.add(DeleteWrite, cont);
+
+            Update.setFont(ft2);
+            cont.gridx = 0;
+            cont.gridy = 8;
+            this.add(Update, cont);
+
+            UpdateWrite.setFont(ft);
+            UpdateWrite.setForeground(new Color(0, 0, 128));
+
+            cont.gridx = 0;
+            cont.gridy = 9;
+            this.add(UpdateWrite, cont);
+
+            Return.setFont(ft2);
+            cont.gridx = 0;
+            cont.gridy = 10;
+            this.add(Return, cont);
+
+            ReturnWrite.setFont(ft);
+            ReturnWrite.setForeground(new Color(0, 0, 128));
+
+            cont.gridx = 0;
+            cont.gridy = 11;
+            this.add(ReturnWrite, cont);
+
+            cont.gridx = 0;
+            cont.gridy = 12;
+            this.add(ReturnExtras1, cont);
+
+            ReturnExtras2.setFont(ft);
+            ReturnExtras2.setForeground(new Color(0, 0, 128));
+
+            cont.gridx = 0;
+            cont.gridy = 13;
+            this.add(ReturnExtras2, cont);
+
+            this.setPreferredSize(new Dimension(100, 200));
+
+
+        }
+
+    }
+
     public class CreatePanel extends JPanel implements control.Observateur {
 
         public JLabel lCreateNode = new JLabel("Créer une node:");
