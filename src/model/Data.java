@@ -115,24 +115,6 @@ public class Data extends Observable {
         return listRelation;
     }
 
-    /**
-     * Recherche les Noeuds d'une relation
-     *
-     * @param relation Relation contenant les nodes
-     * @return list des nodes contenu dans la relation
-     */
-    public ArrayList<Node> searchNodeFromRelation(Relation relation) {
-        for (int i = 0; i < this.relationList.size(); i++) {
-            if (relationList.get(i) == relation) {
-                ArrayList<Node> listNode = new ArrayList<>();
-                listNode.add(relationList.get(i).getNode1());
-                listNode.add(relationList.get(i).getNode2());
-                return listNode;
-            }
-        }
-        return null;
-    }
-
     public String toString() {
         String display;
 
